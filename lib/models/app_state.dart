@@ -5,12 +5,14 @@ class AppState {
   final List<WeatherData> weatherData;
   final UserSettings userSettings;
   final int currentLocationIndex;
+  final LoadingState loadingState;
 
   AppState({
     required this.locations,
     required this.weatherData,
     required this.userSettings,
     required this.currentLocationIndex,
+    required this.loadingState,
   });
 
   factory AppState.initial() {
@@ -19,6 +21,7 @@ class AppState {
       weatherData: <WeatherData>[],
       userSettings: UserSettings.initial(),
       currentLocationIndex: 0,
+      loadingState: LoadingState.done,
     );
   }
 }
