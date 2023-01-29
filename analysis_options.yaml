@@ -22,8 +22,125 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    # Avoid relative imports for files in lib/
+    always_use_package_imports: true
+    # Avoid empty else statements
+    avoid_empty_else: true
+    # Avoid returning null for Future
+    avoid_returning_null_for_future: true
+    # Avoid slow async dart:io methods
+    avoid_slow_async_io: true
+    # Always override hashCode if overriding ==
+    hash_and_equals: true
+    # Don’t use adjacent strings in list (can be sign of forgotten comma)
+    no_adjacent_strings_in_list: true
+    # Avoid using unnecessary statements
+    unnecessary_statements: true
+    # Use trailing commas for all function calls and declarations
+    require_trailing_commas: true
+    
+    ### STYLE RULES - These will ensure consistent and clean formatting across environments
+    # Declare method return types
+    always_declare_return_types: true
+    # Put required named parameters first
+    always_put_required_named_parameters_first: true
+    # Specify type annotations
+    always_specify_types: true
+    # Avoid bool literals in conditional expressions
+    avoid_bool_literals_in_conditional_expressions: true
+    # Avoid catches without on clauses.  
+    # Using catch without on claus can cause unexpected errors that won’t be thrown 
+    avoid_catches_without_on_clauses: true
+    # Don’t explicitly catch Error or types that implement it
+    # Errors differ from Exceptions in that Errors can be analyzed and prevented prior to runtime
+    avoid_catching_errors: true
+    # Avoid escaping inner quotes by converting surrounding quotes
+    avoid_escaping_inner_quotes: true
+    # Avoid field initializers in const classes
+    avoid_field_initializers_in_const_classes: true
+    # Don't explicitly initialize variables to null
+    avoid_init_to_null: true
+    # Don't declare multiple variables on a single line
+    avoid_multiple_declarations_per_line: true
+    # Avoid returning null from members whose return type is bool, double, int, or num
+    avoid_returning_null: true
+    # Avoid returning null for void
+    avoid_returning_null_for_void: true
+    # Avoid returning this from methods just to enable a fluent interface 
+    avoid_returning_this: true
+    # Avoid async functions that return void
+    avoid_void_async: true
+    # # Cascade consecutive method invocations on the same reference
+    # cascade_invocations: true
+    # Missing conditional import
+    conditional_uri_does_not_exist: true
+    # Adhere to Effective Dart Guide directives sorting conventions
+    directives_ordering: true
+    # Put a single newline at end of file
+    eol_at_end_of_file: false
+    # Use Flutter TODO format: // TODO(username): message, https://URL-to-issue
+    flutter_style_todos: true
+    # Start multiline strings with a newline
+    leading_newlines_in_multiline_strings: true
+    # Avoid lines longer than 80 characters
+    # lines_longer_than_80_chars: true
+    # Missing whitespace between adjacent strings
+    missing_whitespace_between_adjacent_strings: true
+    
+    no_leading_underscores_for_local_identifiers: false
+    # Noop primitive operations
+    noop_primitive_operations: true
+    # Provide doc comments for all public APIs
+    package_api_docs: true
+    # Use => for short members whose body is a single return statement
+    # prefer_expression_function_bodies: true
+    # Prefer final in for-each loop variable if reference is not reassigned
+    prefer_final_in_for_each: true
+    # Prefer final for variable declarations if they are not reassigned
+    prefer_final_locals: true
+    # Prefer final for parameter declarations if they are not reassigned
+    prefer_final_parameters: true
+    # 
+    prefer_single_quotes: true  
+
+    # Sort constructor declarations before other members
+    sort_constructors_first: false
+    #Use Key in widget constructors
+    use_key_in_widget_constructors: false
+    # Sort unnamed constructor declarations first
+    sort_unnamed_constructors_first: true
+    # Type annotate public APIs
+    type_annotate_public_apis: true
+    # Future results in async function bodies must be awaited or marked unawaited using dart:async
+    unawaited_futures: true
+    # Unnecessary await keyword in return  // TODO(robv@rappid.design): Is this rule necessary?
+    unnecessary_await_in_return: true
+    # Don’t create a lambda when a tear-off will do
+    unnecessary_lambdas: true
+    # Unnecessary parenthesis can be removed
+    unnecessary_parenthesis: true
+    # Unnecessary raw string
+    unnecessary_raw_strings: true
+    
+    # Use ColoredBox when Container has only a Color
+    use_colored_box: true
+    # Use DecoratedBox when Container has only a Decoration
+    use_decorated_box: true
+    # Prefer intValue.isOdd/isEven instead of checking the result of % 2
+    use_is_even_rather_than_modulo: true
+    # Where possible, use already defined const values
+    use_named_constants: true
+    # Use raw string to avoid escapes
+    use_raw_strings: true
+    # Use string buffers to compose strings
+    # In most cases, using a string buffer is preferred for composing strings due to its improved performance
+    use_string_buffers: true
+
+    ### PUB PACKAGE MANAGER OPTIONS
+    # Use secure urls in pubspec.yaml    
+    secure_pubspec_urls: true
+    # Sort list of pub dependencies to maintenance easier
+    sort_pub_dependencies: true
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
