@@ -1,12 +1,12 @@
 class UserSettings {
-  final bool useDarkMode;
-  final bool useDynamicBackgrounds;
-  final String userColor;
+  bool? useDarkMode;
+  bool? useDynamicBackgrounds;
+  String? userColor;
 
   UserSettings({
-    required this.useDarkMode,
-    required this.useDynamicBackgrounds,
-    required this.userColor,
+    this.useDarkMode,
+    this.useDynamicBackgrounds,
+    this.userColor,
   });
 
   factory UserSettings.initial() {
