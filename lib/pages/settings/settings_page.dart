@@ -1,5 +1,7 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:forecast_v3/models/models.dart';
+import 'package:forecast_v3/pages/settings/settings_view_model.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -12,6 +14,16 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(final BuildContext context) {
-    return const Placeholder();
+    return StoreConnector<AppState, SettingsPageViewModel>(
+      // onInit: onInit,
+      converter: SettingsPageViewModel.create,
+      builder: (final BuildContext context, final SettingsPageViewModel vm) {
+        return Scaffold(
+          body: Center(
+            child: Text(vm.message),
+          ),
+        );
+      },
+    );
   }
 }
