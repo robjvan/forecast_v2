@@ -1,3 +1,6 @@
+/// Global App theme
+/// Holds colors and styles
+
 import 'package:flutter/material.dart';
 
 class AppTheme {
@@ -32,9 +35,20 @@ class AppTheme {
       ],
     ),
   );
+}
 
+class AppStyles {    
   // static TextStyle productDetailNameStyle = const TextStyle(
   //   fontSize: 28.0,
   //   fontStyle: FontStyle.italic,
   // );
+}
+
+class AppColors {
+  //
+}
+
+class AppFonts {
+  static const String carroisSC = 'CarroisSC';
+  static const String montserrat = 'Montserrat';
 }
