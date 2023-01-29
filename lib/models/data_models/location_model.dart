@@ -19,4 +19,11 @@ class Location {
       region: '',
     );
   }
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'latitude': latitude,
+        'longitude': longitude,
+        'name': name,
+        'region': region,
+      };
 }
