@@ -1,4 +1,5 @@
 import 'package:forecast_v3/models/models.dart';
+import 'package:forecast_v3/redux/actions.dart';
 
 AppState appReducer(final AppState state, final dynamic action) {
   return AppState(
@@ -7,44 +8,60 @@ AppState appReducer(final AppState state, final dynamic action) {
     currentLocationIndex:
         currentLocationIndexReducer(state.currentLocationIndex, action),
     userSettings: userSettingsReducer(state.userSettings, action),
+    loadingState: loadingStateReducer(state.loadingState, action),
   );
 }
 
-weatherDataListReducer(
-  final List<WeatherData> weatherData,
+LoadingState loadingStateReducer(
+  final LoadingState loadingState,
   final dynamic action,
 ) {
-  // if (action is something) {
-  //   return do stuff;
-  // }
-  return weatherData;
+  // log('[reducers.dart] loadingStateReducer fired! loadingState = $loadingState, action = ${action.runtimeType}');
+  if (action is SetLoadingStateAction) {
+    return action.loadingState;
+  }
+  return loadingState;
 }
 
-locationsListReducer(
+List<WeatherData> weatherDataListReducer(
+  final List<WeatherData> weatherDataList,
+  final dynamic action,
+) {
+  // log('[reducers.dart] weatherDataListReducer fired, action = ${action.runtimeType}');
+  if (action is UpdateWeatherDataListAction) {
+    return action.weatherDataList;
+  }
+  return weatherDataList;
+}
+
+List<Location> locationsListReducer(
   final List<Location> locations,
   final dynamic action,
 ) {
-  // if (action is something) {
-  //   return action.locations;
-  // }
+  // log('[reducers.dart] locationsListReducer fired, action = ${action.runtimeType}');
+  if (action is UpdateLocationListAction) {
+    return action.locations;
+  }
   return locations;
 }
 
-currentLocationIndexReducer(
+int currentLocationIndexReducer(
   final int currentLocationIndex,
   final dynamic action,
 ) {
-  // if (action is something) {
+  // log('[reducers.dart] currentLocationIndexReducer fired, action = ${action.runtimeType}');
+  // if (action is UpdateCurrentLocationIndexAction) {
   //   return action.currentLocationIndex;
   // }
   return currentLocationIndex;
 }
 
-userSettingsReducer(
+UserSettings userSettingsReducer(
   final UserSettings userSettings,
   final dynamic action,
 ) {
-  // if (action is something) {
+  // log('[reducers.dart] userSettingsReducer fired, action = ${action.runtimeType}');
+  // if (action is UpdateUserSettingsAction) {
   //   return action.userSettings;
   // }
   return userSettings;
