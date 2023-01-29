@@ -1,0 +1,1 @@
+// These actions are used to interact with WeatherData state
