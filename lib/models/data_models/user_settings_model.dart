@@ -16,4 +16,10 @@ class UserSettings {
       userColor: '00FF00',
     );
   }
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'useDarkMode': useDarkMode,
+        'useDynamicBackgrounds': useDynamicBackgrounds,
+        'userColor': userColor,
+      };
 }
