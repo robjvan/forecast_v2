@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:forecast_v3/models/models.dart';
 import 'package:forecast_v3/pages/dashboard/dashboard_view_model.dart';
 import 'package:forecast_v3/redux/actions.dart';
+import 'package:forecast_v3/widgets/widgets.dart';
 import 'package:redux/redux.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -43,9 +44,13 @@ class _DashboardPageState extends State<DashboardPage> {
     } else {
       // If there IS NOT a list, grab user location and weather data
       await store.dispatch(grabUserLocationAction);
-      await store.dispatch(fetchWeatherDataAction(0));
+      await store.dispatch(fetchWeatherDataAction(0, true));
       store.dispatch(const SetLoadingStateAction(LoadingState.done));
     }
+  }
+
+  PreferredSizeWidget buildAppBar() {
+    return AppBar();
   }
 
   @override
@@ -56,17 +61,22 @@ class _DashboardPageState extends State<DashboardPage> {
       converter: DashboardPageViewModel.create,
       builder: (final BuildContext context, final DashboardPageViewModel vm) {
         return Scaffold(
+          appBar: buildAppBar(),
+          drawer: vm.loadingState == LoadingState.loading
+              ? const CircularProgressIndicator()
+              : const SettingsDrawer(),
           body: Center(
             child: vm.loadingState == LoadingState.loading
                 ? const CircularProgressIndicator()
                 : Center(
                     child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(vm.name),
-                      Text(vm.currentTempC.toString())
-                    ],
-                  )),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(vm.name),
+                        Text(vm.currentTempC.toString())
+                      ],
+                    ),
+                  ),
           ),
         );
       },
