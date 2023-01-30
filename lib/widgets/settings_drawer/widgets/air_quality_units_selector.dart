@@ -25,14 +25,14 @@ class AirQualityUnitsSelector extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
           child: Text(
-            'settings.aqi-units'.tr,
+            'settings.aqi_units'.tr,
             style: TextStyle(color: viewModel.textColor),
           ),
         ),
         SettingsToggleSwitch(
           context: context,
           initialIndex: index,
-          labels: const <String>['US EPA Index', 'GB Defra Index'],
+          labels: <String>['settings.us_aqi'.tr, 'settings.gb_aqi'.tr],
           onToggleFn: (final dynamic index) =>
               <dynamic>{viewModel.updateAQIUnits(index)},
           totalSwitches: 2,
