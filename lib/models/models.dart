@@ -19,4 +19,4 @@ export 'enums/connection_status_model.dart';
 export 'enums/loading_state.dart';
 export 'enums/temp_unit_model.dart';
 export 'enums/wind_speed_unit_model.dart';
-export 'user_settings_model.dart';
+export 'user_settings.dart';
