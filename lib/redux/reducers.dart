@@ -40,7 +40,7 @@ List<Location> locationsListReducer(
 ) {
   // log('[reducers.dart] locationsListReducer fired, action = ${action.runtimeType}');
   if (action is UpdateLocationListAction) {
-    return action.locations;
+    return action.newLocationList;
   }
   return locations;
 }
@@ -50,9 +50,9 @@ int currentLocationIndexReducer(
   final dynamic action,
 ) {
   // log('[reducers.dart] currentLocationIndexReducer fired, action = ${action.runtimeType}');
-  // if (action is UpdateCurrentLocationIndexAction) {
-  //   return action.currentLocationIndex;
-  // }
+  if (action is UpdateCurrentLocationIndexAction) {
+    return action.newLocationIndex;
+  }
   return currentLocationIndex;
 }
 
@@ -61,8 +61,8 @@ UserSettings userSettingsReducer(
   final dynamic action,
 ) {
   // log('[reducers.dart] userSettingsReducer fired, action = ${action.runtimeType}');
-  // if (action is UpdateUserSettingsAction) {
-  //   return action.userSettings;
-  // }
+  if (action is UpdateUserSettingsAction) {
+    return action.userSettings;
+  }
   return userSettings;
 }
