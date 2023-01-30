@@ -1,9 +1,7 @@
-import 'package:forecast_v3/actions/actions.dart';
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/state.dart';
-import 'package:forecast_v3/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
+import 'package:forecast_v3/models/models.dart';
+import 'package:forecast_v3/redux/actions.dart';
 import 'package:forecast_v3/utilities/utilities.dart';
 import 'package:redux/redux.dart';
 
@@ -34,6 +32,7 @@ class SettingsDrawerViewModel {
   final Function refreshScreen;
   final Function(int?) weatherType;
   final int activeIndex;
+  final Function(dynamic) dispatch;
 
   const SettingsDrawerViewModel({
     required this.panelColor,
@@ -61,29 +60,30 @@ class SettingsDrawerViewModel {
     required this.aqiUnits,
     required this.refreshScreen,
     required this.activeIndex,
+    required this.dispatch,
   });
 
-  factory SettingsDrawerViewModel.create(final Store<GlobalAppState> store) {
-    int getActiveLocationIndex() => store.state.activeLocationIndex;
+  factory SettingsDrawerViewModel.create(final Store<AppState> store) {
+    int getActiveLocationIndex() => store.state.currentLocationIndex;
 
     void toggleDarkMode() {
-      store.dispatch(ToggleDarkModeAction());
+      store.dispatch(toggleDarkModeAction);
     }
 
     void toggleAnimatedBackgrounds() {
-      store.dispatch(ToggleAnimatedBackgroundsAction());
+      store.dispatch(toggleAnimatedBackgroundsAction);
     }
 
     void updateTempUnits(final int index) {
       switch (index) {
         case 0:
-          store.dispatch(const ChangeTempUnitsAction(TempUnits.c));
+          store.dispatch(changeTempUnitsAction(TempUnits.c));
           break;
         case 1:
-          store.dispatch(const ChangeTempUnitsAction(TempUnits.f));
+          store.dispatch(changeTempUnitsAction(TempUnits.f));
           break;
         case 2:
-          store.dispatch(const ChangeTempUnitsAction(TempUnits.k));
+          store.dispatch(changeTempUnitsAction(TempUnits.k));
           break;
       }
     }
@@ -91,17 +91,16 @@ class SettingsDrawerViewModel {
     void updateWindSpeedUnits(final int index) {
       switch (index) {
         case 0:
-          store.dispatch(const ChangeWindSpeedUnitsAction(WindSpeedUnits.kph));
+          store.dispatch(changeWindSpeedUnitsAction(WindSpeedUnits.kph));
           break;
         case 1:
-          store.dispatch(const ChangeWindSpeedUnitsAction(WindSpeedUnits.mph));
+          store.dispatch(changeWindSpeedUnitsAction(WindSpeedUnits.mph));
           break;
         case 2:
-          store
-              .dispatch(const ChangeWindSpeedUnitsAction(WindSpeedUnits.knots));
+          store.dispatch(changeWindSpeedUnitsAction(WindSpeedUnits.knots));
           break;
         case 3:
-          store.dispatch(const ChangeWindSpeedUnitsAction(WindSpeedUnits.ms));
+          store.dispatch(changeWindSpeedUnitsAction(WindSpeedUnits.ms));
           break;
       }
     }
@@ -110,22 +109,22 @@ class SettingsDrawerViewModel {
       switch (index) {
         case 0:
           store.dispatch(
-            const ChangeAirPressureUnitsAction(AirPressureUnits.kpa),
+            changeAirPressureUnitsAction(AirPressureUnits.kpa),
           );
           break;
         case 1:
           store.dispatch(
-            const ChangeAirPressureUnitsAction(AirPressureUnits.inch),
+            changeAirPressureUnitsAction(AirPressureUnits.inch),
           );
           break;
         case 2:
           store.dispatch(
-            const ChangeAirPressureUnitsAction(AirPressureUnits.mbar),
+            changeAirPressureUnitsAction(AirPressureUnits.mbar),
           );
           break;
         case 3:
           store.dispatch(
-            const ChangeAirPressureUnitsAction(AirPressureUnits.atm),
+            changeAirPressureUnitsAction(AirPressureUnits.atm),
           );
           break;
       }
@@ -134,17 +133,17 @@ class SettingsDrawerViewModel {
     void updateAQIUnits(final int index) {
       switch (index) {
         case 0:
-          store.dispatch(const ChangeAQIUnitsAction(AQIUnits.us));
+          store.dispatch(changeAQIUnitsAction(AQIUnits.us));
           break;
         case 1:
-          store.dispatch(const ChangeAQIUnitsAction(AQIUnits.gb));
+          store.dispatch(changeAQIUnitsAction(AQIUnits.gb));
           break;
       }
     }
 
     // ignore: missing_return
     Color getPointerColor() {
-      final bool useBG = store.state.userSettings.useAnimatedBackgrounds;
+      final bool useBG = store.state.userSettings.useDynamicBackgrounds;
       final bool useDM = store.state.userSettings.useDarkMode;
 
       if (useDM && useBG) {
@@ -174,23 +173,22 @@ class SettingsDrawerViewModel {
     void refreshScreen(final BuildContext context) {
       Navigator.of(context).pop();
       store.dispatch(
-        FetchWeatherDataAction(
-          index: getActiveLocationIndex(),
-          latitude: store.state.weatherDataList.isNotEmpty
-              ? store
-                  .state.weatherDataList[getActiveLocationIndex()]!.location.lat
-              : store.state.weatherDataList.first!.location.lat,
-          longitude: store.state.weatherDataList.isNotEmpty
-              ? store.state.weatherDataList[getActiveLocationIndex()]!.location
-                  .long
-              : store.state.weatherDataList.first!.location.long,
+        fetchWeatherDataAction(getActiveLocationIndex(), true
+            // latitude: store.state.weatherData.isNotEmpty
+            //     ? store
+            //         .state.weatherData[getActiveLocationIndex()].location.lat
+            //     : store.state.weatherData.first.location.lat,
+            // longitude: store.state.weatherData.isNotEmpty
+            //     ? store.state.weatherData[getActiveLocationIndex()].location
+            //         .long
+            //     : store.state.weatherData.first.location.long,
         ),
       );
     }
 
     WeatherType? weatherType(final int? code) {
-      final bool? isDay = store.state.weatherDataList[getActiveLocationIndex()]!
-          .currentConditions.is_day;
+      final bool? isDay = store
+          .state.weatherData[getActiveLocationIndex()].currentConditions.is_day;
       switch (code) {
         case 1000:
         case 1003:
@@ -265,7 +263,7 @@ class SettingsDrawerViewModel {
     }
 
     return SettingsDrawerViewModel(
-      activeIndex: store.state.activeLocationIndex,
+      activeIndex: store.state.currentLocationIndex,
       aqiUnits: store.state.userSettings.aqiUnits,
       windSpeedUnits: store.state.userSettings.windSpeedUnits,
       updateTempUnits: updateTempUnits,
@@ -278,19 +276,21 @@ class SettingsDrawerViewModel {
       drawerColor: store.state.userSettings.useDarkMode
           ? AppColors.black.withOpacity(0.85)
           : AppColors.bgColorLightMode.withOpacity(0.85),
-      textColor: store.state.userSettings.useDarkMode ? white : black,
+      textColor: store.state.userSettings.useDarkMode
+          ? AppColors.white
+          : AppColors.black,
       toggleDarkModeIcon: store.state.userSettings.useDarkMode
           ? Icons.toggle_on_outlined
           : Icons.toggle_off_outlined,
-      toggleAnimBgIcon: store.state.userSettings.useAnimatedBackgrounds
+      toggleAnimBgIcon: store.state.userSettings.useDynamicBackgrounds
           ? Icons.toggle_on_outlined
           : Icons.toggle_off_outlined,
-      useAnimatedBackgrounds: store.state.userSettings.useAnimatedBackgrounds,
+      useAnimatedBackgrounds: store.state.userSettings.useDynamicBackgrounds,
       useDarkMode: store.state.userSettings.useDarkMode,
       toggleAnimatedBackgrounds: toggleAnimatedBackgrounds,
       toggleDarkMode: toggleDarkMode,
       // locationList: store.state.locationList,
-      weatherDataList: store.state.weatherDataList,
+      weatherDataList: store.state.weatherData,
       airPressureUnits: store.state.userSettings.airPressureUnits,
       tempUnits: getTempUnitsString(),
       pointerColor: getPointerColor(),
@@ -306,6 +306,7 @@ class SettingsDrawerViewModel {
       ),
       refreshScreen: refreshScreen,
       weatherType: weatherType,
+      dispatch: store.dispatch,
     );
   }
 }
