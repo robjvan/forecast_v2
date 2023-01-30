@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:forecast_v3/utilities/utilities.dart';
 import 'package:forecast_v3/widgets/settings_drawer/settings_drawer_view_model.dart';
+import 'package:get/get.dart';
 
 class LocationSelector extends StatefulWidget {
   final SettingsDrawerViewModel viewModel;
@@ -52,7 +53,7 @@ class _LocationSelectorState extends State<LocationSelector> {
             ),
           ),
           isDense: true,
-          hintText: tr('settings.find_location'),
+          hintText: 'settings.find_location'.tr,
           hintStyle: TextStyle(
             color: widget.viewModel.textColor.withOpacity(0.6),
           ),
