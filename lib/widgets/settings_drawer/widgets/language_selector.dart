@@ -11,7 +11,6 @@ class LanguageSelector extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     int index = 0;
-    final Locale defaultLocale = Get.deviceLocale!;
     if (Get.locale == const Locale('en')) {
       index = 0;
     } else if (Get.locale == const Locale('fr')) {
@@ -41,19 +40,16 @@ class LanguageSelector extends StatelessWidget {
               'settings.es'.tr,
             ],
             onToggleFn: (final int? index) {
-              viewModel.refreshScreen(context);
+              // viewModel.refreshScreen(context);
               switch (index) {
                 case 0:
                   Get.updateLocale(const Locale('en'));
-                  // context.setLocale(const Locale('en'));
                   break;
                 case 1:
                   Get.updateLocale(const Locale('fr'));
-                  // context.setLocale(const Locale('fr'));
                   break;
                 case 2:
                   Get.updateLocale(const Locale('es'));
-                  // context.setLocale(const Locale('es'));
                   break;
               }
             },

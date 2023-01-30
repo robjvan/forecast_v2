@@ -43,7 +43,7 @@ class _LocationSelectorState extends State<LocationSelector> {
           color: widget.viewModel.textColor,
         ),
         textEditingController: _locationController,
-        countries: const <String>['ca', 'us', 'uk'],
+        // countries: const <String>['ca', 'us', 'uk'],
         isLatLngRequired: true,
         getPlaceDetailWithLatLng: (final Prediction prediction) {
           // this method will return latlng with place detail
@@ -51,7 +51,9 @@ class _LocationSelectorState extends State<LocationSelector> {
             latitude: double.parse(prediction.lat!),
             longitude: double.parse(prediction.lng!),
             name: prediction.description!.split(', ')[0],
-            region: prediction.description!.split(', ')[1],
+            region: prediction.description!.split(', ').length > 1
+                ? prediction.description!.split(', ')[1]
+                : '',
           );
           widget.viewModel.dispatch(addLocationToListAction(newLocation));
         },

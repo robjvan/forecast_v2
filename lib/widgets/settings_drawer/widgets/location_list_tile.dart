@@ -18,6 +18,106 @@ class LocationListTile extends StatelessWidget {
   Widget build(final BuildContext context) {
     final double sw = MediaQuery.of(context).size.width;
 
+    String getCityName() {
+      return index == 0
+          ? '${'settings.current_location'.tr}, ${viewModel.weatherDataList[index]!.currentConditions.temp_c!.round()}c'
+          : '${viewModel.weatherDataList[index]!.location.name!}, ${viewModel.weatherDataList[index]!.currentConditions.temp_c!.round()}c';
+    }
+
+    Widget buildTileBackground(final SettingsDrawerViewModel viewModel) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: viewModel.useAnimatedBackgrounds
+            ? ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  viewModel.panelColor.withOpacity(
+                    index == viewModel.activeIndex ? 0.8 : 0.3,
+                  ),
+                  BlendMode.dstATop,
+                ),
+                child: WeatherBg(
+                  width: sw,
+                  height: 60,
+                  weatherType: viewModel.weatherType(
+                    viewModel.weatherDataList[index]!.currentConditions
+                            .condition!.code ??
+                        1000,
+                    index,
+                  ),
+                ),
+              )
+            : Container(
+                width: sw,
+                height: 60,
+                color: index == viewModel.activeIndex
+                    ? Theme.of(context).primaryColor
+                    : viewModel.useDarkMode
+                        ? AppColors.locationTileDarkGrey
+                        : AppColors.lightGrey,
+              ),
+      );
+    }
+
+    Widget buildTileContent(final SettingsDrawerViewModel viewModel) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: Row(
+          children: <Widget>[
+            Text(
+              getCityName(),
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 16,
+                color: index == viewModel.activeIndex
+                    ? viewModel.textColor
+                    : viewModel.textColor.withOpacity(0.6),
+                fontWeight: index == viewModel.activeIndex
+                    ? FontWeight.bold
+                    : FontWeight.normal,
+              ),
+            ),
+            const Spacer(),
+            index == 0
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 12.0),
+                    child: Icon(
+                      Icons.location_on_outlined,
+                      color: index == viewModel.activeIndex
+                          ? viewModel.textColor
+                          : viewModel.textColor.withOpacity(0.3),
+                    ),
+                  )
+                : IconButton(
+                    onPressed: () async {
+                      /**
+                               * Check if our activeIndex is higher than the 
+                               * index of the location being deleted.
+                               * If so, we need to decrement our activeIndex 
+                               * to avoid out of range errors
+                               */
+                      if (viewModel.activeIndex >= index) {
+                        viewModel.dispatch(
+                          UpdateCurrentLocationIndexAction(
+                            viewModel.activeIndex - 1,
+                          ),
+                        );
+                      }
+
+                      /// Dispatch action to remove location from lists
+                      viewModel.dispatch(removeLocationFromListAction(index));
+                    },
+                    icon: Icon(
+                      Icons.delete,
+                      color: index == viewModel.activeIndex
+                          ? viewModel.textColor
+                          : viewModel.textColor.withOpacity(0.3),
+                    ),
+                  ),
+          ],
+        ),
+      );
+    }
+
     return Container(
       height: 60,
       padding: const EdgeInsets.symmetric(
@@ -25,98 +125,16 @@ class LocationListTile extends StatelessWidget {
         vertical: 2,
       ),
       child: InkWell(
-        onTap: () {
-          // log('current index changed to: $index');
-          viewModel.dispatch(UpdateCurrentLocationIndexAction(index));
-        },
+        onTap: () =>
+            viewModel.dispatch(UpdateCurrentLocationIndexAction(index)),
         child: Stack(
           alignment: AlignmentDirectional.center,
           children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: viewModel.useAnimatedBackgrounds
-                  ? ColorFiltered(
-                      colorFilter: ColorFilter.mode(
-                        viewModel.panelColor.withOpacity(
-                          index == viewModel.activeIndex ? 0.8 : 0.2,
-                        ),
-                        BlendMode.dstATop,
-                      ),
-                      child: WeatherBg(
-                        width: sw,
-                        height: 60,
-                        weatherType: viewModel.weatherType(
-                          viewModel.weatherDataList[index]!.currentConditions
-                              .condition!.code,
-                        ),
-                      ),
-                    )
-                  : Container(
-                      width: sw,
-                      height: 60,
-                      // color: viewModel.textColor.withOpacity(0.2),
-                      color: index == viewModel.activeIndex
-                          ? Theme.of(context).primaryColor
-                          : viewModel.useDarkMode
-                              ? const Color(0xFF303030)
-                              : AppColors.lightGrey,
-                    ),
-            ),
-            
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    index == 0
-                        ? 'settings.current_location'.tr
-                        : '${viewModel.weatherDataList[index]!.location.name!}, ${viewModel.weatherDataList[index]!.location.region!}',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: index == viewModel.activeIndex
-                          ? viewModel.textColor
-                          : viewModel.textColor.withOpacity(0.6),
-                      fontWeight: index == viewModel.activeIndex
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                    ),
-                  ),
-                  const Spacer(),
-                  index == 0
-                      ? Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: Icon(
-                            Icons.location_on_outlined,
-                            color: index == viewModel.activeIndex
-                                ? viewModel.textColor
-                                : viewModel.textColor.withOpacity(0.3),
-                          ),
-                      )
-                      : IconButton(
-                          onPressed: () {
-                            log('Delete pressed');
-                            if (viewModel.activeIndex == index) {
-                              viewModel.dispatch(
-                                UpdateCurrentLocationIndexAction(index - 1),
-                              );
-                            }
-                            viewModel
-                                .dispatch(removeLocationFromListAction(index));
-                          },
-                          icon: Icon(
-                            Icons.delete,
-                            color: index == viewModel.activeIndex
-                                ? viewModel.textColor
-                                : viewModel.textColor.withOpacity(0.3),
-                          ),
-                        ),
-                ],
-              ),
-            ),
+            buildTileBackground(viewModel),
+            buildTileContent(viewModel),
           ],
         ),
       ),
-      
     );
   }
 }

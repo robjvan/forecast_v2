@@ -72,7 +72,7 @@ class SettingsDrawer extends StatelessWidget {
       DecoratedBox(
         decoration: BoxDecoration(
           color: viewModel.panelColor,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(8.0),
         ),
         child: ExpansionTile(
           title: Text(
@@ -82,7 +82,45 @@ class SettingsDrawer extends StatelessWidget {
           ),
           iconColor: AppColors.grey,
           collapsedIconColor: AppColors.grey,
-          children: const <Widget>[],
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset(
+                        'assets/images/logo/app_icon.png',
+                        fit: BoxFit.cover,
+                        height: 64.0,
+                      ),
+                      const SizedBox(width: 8.0),
+                      Text(
+                        'Forecast',
+                        style: TextStyle(
+                          color: viewModel.textColor,
+                          fontSize: 32.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16.0),
+                  // TODO(Rob): Replace text in blurb
+                  Text(
+                    'Ut voluptates laudantium dolorem. Est repudiandae itaque pariatur quaerat reprehenderit consequatur earum ut atque. Amet consequatur nulla. Earum accusantium asperiores similique.',
+                    style: TextStyle(color: viewModel.textColor),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    '2023 Rob Vandelinder',
+                    style: TextStyle(color: viewModel.textColor),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       );
 
@@ -121,19 +159,23 @@ class SettingsDrawer extends StatelessWidget {
           child: SafeArea(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Column(
-                    children: <Widget>[
-                      _buildSettingsSection(viewModel),
-                      const SizedBox(height: 16),
-                      _buildLocationSection(viewModel, sw),
-                      const SizedBox(height: 16),
-                      _buildAboutAppSection(viewModel),
-                      const SizedBox(height: 32),
-                      _buildCloseSettingsBtn(viewModel, context),
-                    ],
+                  child: Theme(
+                    data: Theme.of(context)
+                        .copyWith(dividerColor: Colors.transparent),
+                    child: Column(
+                      children: <Widget>[
+                        _buildSettingsSection(viewModel),
+                        const SizedBox(height: 16.0),
+                        _buildLocationSection(viewModel, sw),
+                        const SizedBox(height: 16.0),
+                        _buildAboutAppSection(viewModel),
+                        const SizedBox(height: 32.0),
+                        _buildCloseSettingsBtn(viewModel, context),
+                      ],
+                    ),
                   ),
                 ),
               ),

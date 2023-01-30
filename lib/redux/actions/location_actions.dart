@@ -64,7 +64,7 @@ ThunkAction<AppState> addLocationToListAction(final Location newLocation) =>
         final int locationIndex = newLocationsList.indexOf(newLocation);
 
         store.dispatch(
-          fetchWeatherDataAction(locationIndex, false),
+          fetchWeatherDataAction(locationIndex, true),
         );
         store.dispatch(UpdateLocationListAction(newLocationsList));
       }
@@ -78,8 +78,8 @@ ThunkAction<AppState> removeLocationFromListAction(final int index) =>
       final List<WeatherData> newWeatherDataList = store.state.weatherData;
       newWeatherDataList.removeAt(index);
 
-      // dispatch action to remove weatherData from weatherDataList
-      store.dispatch(UpdateWeatherDataListAction(newWeatherDataList));
       // dispatch action to update locationList
       store.dispatch(UpdateLocationListAction(newLocationsList));
+      // dispatch action to remove weatherData from weatherDataList
+      store.dispatch(UpdateWeatherDataListAction(newWeatherDataList));
     };

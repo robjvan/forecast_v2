@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData themeData = ThemeData(
-    primaryColor: Colors.cyan[400],
+    primaryColor: Colors.green,
     useMaterial3: true,
     brightness: Brightness.dark,
     // textTheme: const TextTheme(
@@ -69,6 +69,7 @@ class AppColors {
   static const Color red = Color(0xFFFF0000);
   static const Color grey = Color(0xFF808080);
   static const Color lightGrey = Color(0xFFDDDDDD);
+  static const Color locationTileDarkGrey = Color(0xFF303030);
   static const Color darkGrey = Color(0xFF202020);
 }
 

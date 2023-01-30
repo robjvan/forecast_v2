@@ -9,6 +9,10 @@ class DashboardPageViewModel {
   final double currentTempK;
   final LoadingState loadingState;
   final String name;
+  final List<WeatherData> weatherDataList;
+  final List<Location> locationList;
+  final int activeLocationIndex;
+  final Function(dynamic) dispatch;
 
   const DashboardPageViewModel({
     required this.currentTempC,
@@ -16,11 +20,31 @@ class DashboardPageViewModel {
     required this.currentTempK,
     required this.name,
     required this.loadingState,
+    required this.weatherDataList,
+    required this.locationList,
+    required this.activeLocationIndex,
+    required this.dispatch,
   });
 
   factory DashboardPageViewModel.create(final Store<AppState> store) {
     int getCurrentLocationIndex() {
       return store.state.currentLocationIndex;
+    }
+
+    populateWeatherData() {
+      final List<WeatherData> weatherDataList = [];
+      for (var element in store.state.weatherData) {
+        weatherDataList.add(element);
+      }
+      return weatherDataList;
+    }
+
+    populateLocationsList() {
+      final List<Location> locationsList = [];
+      for (var element in store.state.locations) {
+        locationsList.add(element);
+      }
+      return locationsList;
     }
 
     return DashboardPageViewModel(
@@ -37,6 +61,12 @@ class DashboardPageViewModel {
           ? store.state.locations[getCurrentLocationIndex()].name!
           : '',
       loadingState: store.state.loadingState,
+      // weatherDataList: store.state.weatherData,
+      // locationList: store.state.locations,
+      weatherDataList: populateWeatherData(),
+      locationList: populateLocationsList(),
+      activeLocationIndex: store.state.currentLocationIndex,
+      dispatch: store.dispatch,
     );
   }
 }

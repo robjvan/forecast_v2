@@ -63,11 +63,11 @@ class GeolocationProvider {
 
     if (reversedSearchResults.status == 'OK') {
       userLocation.name = reversedSearchResults.results.first.addressComponents
-          .toList()[3]
+          .toList()[1]
           .longName;
       userLocation.region = reversedSearchResults
           .results.first.addressComponents
-          .toList()[4]
+          .toList()[2]
           .shortName;
     }
     return userLocation;
