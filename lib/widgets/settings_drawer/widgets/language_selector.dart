@@ -12,11 +12,11 @@ class LanguageSelector extends StatelessWidget {
   Widget build(final BuildContext context) {
     int index = 0;
     final Locale defaultLocale = Get.deviceLocale!;
-    if (defaultLocale == const Locale('en')) {
+    if (Get.locale == const Locale('en')) {
       index = 0;
-    } else if (defaultLocale == const Locale('fr')) {
+    } else if (Get.locale == const Locale('fr')) {
       index = 1;
-    } else if (defaultLocale == const Locale('es')) {
+    } else if (Get.locale == const Locale('es')) {
       index = 2;
     }
 
