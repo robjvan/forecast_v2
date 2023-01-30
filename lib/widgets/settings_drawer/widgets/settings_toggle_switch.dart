@@ -52,6 +52,7 @@ class SettingsToggleSwitch extends StatelessWidget {
       curve: Curves.easeInOut,
       animationDuration: 250,
       inactiveFgColor: viewModel.textColor,
+      activeFgColor: viewModel.textColor,
       inactiveBgColor:
           viewModel.useDarkMode ? const Color(0xFF303030) : AppColors.lightGrey,
     );
