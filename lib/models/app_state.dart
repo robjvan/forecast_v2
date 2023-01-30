@@ -27,7 +27,7 @@ class AppState {
     );
   }
 
-  AppState.fromJson(json)
+  AppState.fromJson(final Map<String, dynamic> json)
       : currentLocationIndex = json['currentLocationIndex'],
         loadingState = LoadingState.done,
         locations = (json['locations'] as List<Location>)
@@ -36,8 +36,8 @@ class AppState {
         userSettings = UserSettings.fromJson(json),
         weatherData = <WeatherData>[];
 
-  @override
-  Map<String, dynamic> toJson() => {
+  
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'locations': locations,
         'userSettings': userSettings,
         'currentLocationIndex': currentLocationIndex,
