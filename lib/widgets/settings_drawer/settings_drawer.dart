@@ -63,9 +63,7 @@ class SettingsDrawer extends StatelessWidget {
           collapsedIconColor: AppColors.grey,
           children: <Widget>[
             LocationSelector(viewModel),
-            // _buildLocationSelector(viewModel),
             LocationListWidget(viewModel),
-            // _buildLocationsList(viewModel, sw),
           ],
         ),
       );
