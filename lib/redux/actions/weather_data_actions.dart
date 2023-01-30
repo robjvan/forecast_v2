@@ -8,13 +8,18 @@ import 'package:forecast_v3/redux/actions.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
-ThunkAction<AppState> fetchWeatherDataAction(final int locationListIndex) =>
+ThunkAction<AppState> fetchWeatherDataAction(
+  final int locationListIndex,
+  final bool setLoadingState,
+) =>
     (final Store<AppState> store) async {
       final List<WeatherData> weatherDataList = store.state.weatherData;
 
       // set the app state as loading
       if (store.state.loadingState != LoadingState.loading) {
-        store.dispatch(const SetLoadingStateAction(LoadingState.loading));
+        if (setLoadingState) {
+          store.dispatch(const SetLoadingStateAction(LoadingState.loading));
+        }
       }
 
       // Pull location coords from passed data
@@ -84,16 +89,17 @@ ThunkAction<AppState> fetchWeatherDataAction(final int locationListIndex) =>
         );
 
         // Update weather data in weather data list
-        if (weatherDataList.isEmpty) {
+        // if (locationListIndex == 0) {
           weatherDataList.add(weatherData);
-        } else {
-          if (weatherDataList.length > locationListIndex) {
-            weatherDataList.removeAt(locationListIndex);
-            weatherDataList.insert(locationListIndex, weatherData);
-          } else {
-            weatherDataList.add(weatherData);
-          }
-        }
+        // } else {
+        //   // if (weatherDataList.length > locationListIndex) {
+
+        //     weatherDataList.removeAt(locationListIndex);
+        //     weatherDataList.insert(locationListIndex, weatherData);
+        //   } else {
+        //     weatherDataList.add(weatherData);
+        //   }
+        // }
 
         // Send new weatherData list to reducer
         store.dispatch(
@@ -104,7 +110,7 @@ ThunkAction<AppState> fetchWeatherDataAction(final int locationListIndex) =>
           'There was a problem fetching weather data ${apiResponse.message}',
         );
       }
-      // store.dispatch(const SetLoadingStateAction(LoadingState.done));
+      store.dispatch(const SetLoadingStateAction(LoadingState.done));
     };
 
 class UpdateWeatherDataListAction {
