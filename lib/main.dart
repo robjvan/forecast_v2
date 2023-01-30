@@ -37,6 +37,8 @@ class MyApp extends StatelessWidget {
       store: store,
       child: GetMaterialApp(
         translations: AppTranslations(),
+        locale: Get.deviceLocale,
+        fallbackLocale: const Locale('en', 'US'),
         getPages: AppRoutes.getPages,
         title: 'Forecast',
         theme: AppTheme.themeData,
