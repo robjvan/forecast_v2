@@ -26,4 +26,17 @@ class Location {
         'name': name,
         'region': region,
       };
+
+  factory Location.fromJson(final Map<String, dynamic> json) {
+    return Location(
+      latitude: json['latitude'],
+      longitude: json['longitude'],
+      name: json['name'],
+      region: json['region'],
+    );
+  }
+
+  @override
+  String toString() =>
+      'latitude: $latitude, longitude: $longitude, name: $name, region: $region';
 }
