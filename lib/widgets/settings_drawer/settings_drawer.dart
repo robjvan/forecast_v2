@@ -64,6 +64,7 @@ class SettingsDrawer extends StatelessWidget {
           children: <Widget>[
             LocationSelector(viewModel),
             LocationListWidget(viewModel),
+            const SizedBox(height: 8),
           ],
         ),
       );
