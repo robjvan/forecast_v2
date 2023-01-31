@@ -49,10 +49,8 @@ class _DashboardPageState extends State<DashboardPage>
        */
     } else {
       /// If there IS NOT a list, grab user location and weather data
-      // if (store.state.loadingState == LoadingState.loading) {
       await store.dispatch(grabUserLocationAction);
       await store.dispatch(fetchWeatherDataAction(0, true));
-      // }
       store.dispatch(const SetLoadingStateAction(LoadingState.done));
     }
   }

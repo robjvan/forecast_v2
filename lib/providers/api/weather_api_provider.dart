@@ -9,10 +9,13 @@ class WeatherAPIProvider {
   WeatherAPIProvider();
 
   Future<http.Response> getWeatherDataFromApi(
-    final String? lat,
-    final String? long,
+    // final String locationString,
+    final String lat,
+    final String long,
   ) =>
       http.get(
         _weatherApi.resolve('$_apiUrl$lat,$long&days=5&aqi=yes&alerts=yes'),
+        // _weatherApi
+        //     .resolve('$_apiUrl$locationString&days=5&aqi=yes&alerts=yes'),
       );
 }

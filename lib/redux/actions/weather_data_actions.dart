@@ -15,22 +15,27 @@ ThunkAction<AppState> fetchWeatherDataAction(
     (final Store<AppState> store) async {
       final List<WeatherData> weatherDataList = store.state.weatherData;
 
-      // set the app state as loading
-      if (store.state.loadingState != LoadingState.loading) {
-        if (setLoadingState) {
+      /// Set the app state as loading
+      if (setLoadingState) {
+        if (store.state.loadingState != LoadingState.loading) {
           store.dispatch(const SetLoadingStateAction(LoadingState.loading));
         }
       }
 
-      // Pull location coords from passed data
+      /// Pull location coords from passed data
       final Map<String, double> coords = <String, double>{
         'lat': store.state.locations[locationListIndex].latitude!,
         'long': store.state.locations[locationListIndex].longitude!
       };
 
+      // /// Pull location name from passed data
+      // final String locationString =
+      //     '${store.state.locations[locationListIndex].name}, ${store.state.locations[locationListIndex].region}';
+
       // Fetch weather data from API
       final APIResponse<dynamic> apiResponse =
           await WeatherDataProvider.fetchWeatherData(
+        // locationString,
         lat: coords['lat'].toString(),
         long: coords['long'].toString(),
       );

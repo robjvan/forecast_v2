@@ -6,12 +6,15 @@ import 'package:http/http.dart';
 
 class WeatherDataProvider {
   /// Grab weather data from the API
-  static Future<APIResponse<dynamic>> fetchWeatherData({
+  static Future<APIResponse<dynamic>> fetchWeatherData(
+      // final String locationString,
+      {
     required final String lat,
     required final String long,
   }) async {
     final Response response =
         await WeatherAPIProvider().getWeatherDataFromApi(lat, long);
+    // await WeatherAPIProvider().getWeatherDataFromApi(locationString);
     // Return error code is status is not 200 or 201
     if (response.statusCode != 200) {
       return APIResponse<dynamic>(

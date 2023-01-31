@@ -46,7 +46,7 @@ class _LocationSelectorState extends State<LocationSelector> {
         // countries: const <String>['ca', 'us', 'uk'],
         isLatLngRequired: true,
         getPlaceDetailWithLatLng: (final Prediction prediction) {
-          // this method will return latlng with place detail
+          /// This method will return latlng with place detail
           final Location newLocation = Location(
             latitude: double.parse(prediction.lat!),
             longitude: double.parse(prediction.lng!),
