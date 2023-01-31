@@ -37,7 +37,7 @@ class LocationListTile extends StatelessWidget {
                 ),
                 child: WeatherBg(
                   width: sw,
-                  height: 60,
+                  height: 48,
                   weatherType: viewModel.weatherType(
                     viewModel.weatherDataList[index]!.currentConditions
                             .condition!.code ??
@@ -48,7 +48,7 @@ class LocationListTile extends StatelessWidget {
               )
             : Container(
                 width: sw,
-                height: 60,
+                height: 48,
                 color: index == viewModel.activeIndex
                     ? Theme.of(context).primaryColor
                     : viewModel.useDarkMode
@@ -63,17 +63,20 @@ class LocationListTile extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: Row(
           children: <Widget>[
-            Text(
-              getCityName(),
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 16,
-                color: index == viewModel.activeIndex
-                    ? viewModel.textColor
-                    : viewModel.textColor.withOpacity(0.6),
-                fontWeight: index == viewModel.activeIndex
-                    ? FontWeight.bold
-                    : FontWeight.normal,
+            SizedBox(
+              width: sw - 136,
+              child: Text(
+                getCityName(),
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: index == viewModel.activeIndex
+                      ? viewModel.textColor
+                      : viewModel.textColor.withOpacity(0.6),
+                  fontWeight: index == viewModel.activeIndex
+                      ? FontWeight.bold
+                      : FontWeight.normal,
+                ),
               ),
             ),
             const Spacer(),
@@ -90,11 +93,11 @@ class LocationListTile extends StatelessWidget {
                 : IconButton(
                     onPressed: () async {
                       /**
-                               * Check if our activeIndex is higher than the 
-                               * index of the location being deleted.
-                               * If so, we need to decrement our activeIndex 
-                               * to avoid out of range errors
-                               */
+                       * Check if our activeIndex is higher than the 
+                       * index of the location being deleted.
+                       * If so, we need to decrement our activeIndex 
+                       * to avoid out of range errors
+                       */
                       if (viewModel.activeIndex >= index) {
                         viewModel.dispatch(
                           UpdateCurrentLocationIndexAction(
@@ -119,7 +122,7 @@ class LocationListTile extends StatelessWidget {
     }
 
     return Container(
-      height: 60,
+      height: 48,
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 2,
