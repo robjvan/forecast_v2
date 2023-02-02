@@ -55,7 +55,14 @@ class _LocationSelectorState extends State<LocationSelector> {
                 ? prediction.description!.split(', ')[1]
                 : '',
           );
+
+          /// Add new location to state.locationList
           await widget.viewModel.dispatch(addLocationToListAction(newLocation));
+
+          /// Update currentLocationIndex to new location
+          await widget.viewModel.updateCurrentIndex(newLocation);
+
+
           widget.viewModel
               .dispatch(const SetLoadingStateAction(LoadingState.done));
         },

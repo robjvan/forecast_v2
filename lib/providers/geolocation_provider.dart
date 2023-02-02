@@ -62,6 +62,8 @@ class GeolocationProvider {
     userLocation.longitude = position.longitude;
 
     if (reversedSearchResults.status == 'OK') {
+      try {
+
       userLocation.name = reversedSearchResults.results.first.addressComponents
           .toList()[2]
           .longName;
@@ -69,6 +71,12 @@ class GeolocationProvider {
           .results.first.addressComponents
           .toList()[3]
           .shortName;
+      } on Exception catch (_) {
+        userLocation.name = reversedSearchResults
+            .results.first.addressComponents
+            .toList()[2]
+            .longName;
+      } 
     }
     return userLocation;
   }

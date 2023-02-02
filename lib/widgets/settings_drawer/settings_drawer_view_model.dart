@@ -33,6 +33,7 @@ class SettingsDrawerViewModel {
   final Function(int, int) weatherType;
   final int activeIndex;
   final Function(dynamic) dispatch;
+  final Function updateCurrentIndex;
 
   const SettingsDrawerViewModel({
     required this.panelColor,
@@ -61,6 +62,7 @@ class SettingsDrawerViewModel {
     required this.refreshScreen,
     required this.activeIndex,
     required this.dispatch,
+    required this.updateCurrentIndex,
   });
 
   factory SettingsDrawerViewModel.create(final Store<AppState> store) {
@@ -188,8 +190,8 @@ class SettingsDrawerViewModel {
     }
 
     WeatherType? weatherType(final int code, final int index) {
-      final bool? isDay = store
-          .state.weatherData[index].currentConditions.is_day;
+      final bool? isDay =
+          store.state.weatherData[index].currentConditions.is_day;
       switch (code) {
         case 1000:
         case 1003:
@@ -252,6 +254,17 @@ class SettingsDrawerViewModel {
       return null;
     }
 
+    void updateCurrentIndex(final Location location) {
+      final int locationIndex = store.state.locations.indexOf(location);
+
+      /// Update active index to newly added location
+      store.dispatch(
+        UpdateCurrentLocationIndexAction(locationIndex),
+      );
+
+      store.dispatch(saveLocationIndexAction);
+    }
+
     return SettingsDrawerViewModel(
       activeIndex: store.state.currentLocationIndex,
       aqiUnits: store.state.userSettings.aqiUnits,
@@ -297,6 +310,7 @@ class SettingsDrawerViewModel {
       refreshScreen: refreshScreen,
       weatherType: weatherType,
       dispatch: store.dispatch,
+      updateCurrentIndex: updateCurrentIndex,
     );
   }
 }

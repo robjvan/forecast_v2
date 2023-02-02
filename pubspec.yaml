@@ -21,6 +21,7 @@ dependencies:
   geolocator: ^9.0.2
   geolocator_windows: ^0.1.1
   get: ^4.6.5
+  get_storage: ^2.0.3
   google_geocoding_api: ^1.2.0
   google_places_flutter: ^2.0.5
   http: ^0.13.5

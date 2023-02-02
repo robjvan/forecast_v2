@@ -1,5 +1,6 @@
 // These actions are used to interact with Location state
 
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:forecast_v3/models/models.dart';
@@ -8,6 +9,7 @@ import 'package:forecast_v3/providers/local_storage_provider.dart';
 import 'package:forecast_v3/redux/actions.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
@@ -139,4 +141,22 @@ ThunkAction<AppState> loadUserLocationsAction =
       await store.dispatch(fetchWeatherDataAction(locationIndex, true));
     }
   }
+};
+
+// Save currentLocationIndex to Getx storage
+ThunkAction<AppState> saveLocationIndexAction =
+    (final Store<AppState> store) async {
+  final GetStorage box = GetStorage();
+  await box.write('userLocationIndex', store.state.currentLocationIndex);
+};
+
+// Save currentLocationIndex to Getx storage
+ThunkAction<AppState> loadLocationIndexAction =
+    (final Store<AppState> store) async {
+  final GetStorage box = GetStorage();
+  final int locationIndex = box.read('userLocationIndex') ?? 0;
+  // if (locationIndex == NULL)
+  store.dispatch(
+    UpdateCurrentLocationIndexAction(locationIndex),
+  );
 };

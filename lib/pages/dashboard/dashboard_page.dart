@@ -33,6 +33,9 @@ class _DashboardPageState extends State<DashboardPage>
       await store.dispatch(loadUserLocationsAction);
       final UserSettings userSettings = UserSettings.fromJson(localData);
       store.dispatch(UpdateUserSettingsAction(userSettings));
+
+      /// Grab user location index from Get Storage
+      await store.dispatch(loadLocationIndexAction);
     }
 
     /// Grab user's current location again in case the saved location is no longer accurate
@@ -41,7 +44,7 @@ class _DashboardPageState extends State<DashboardPage>
     store.dispatch(const SetLoadingStateAction(LoadingState.done));
   }
 
-  @override 
+  @override
   Widget build(final BuildContext context) {
     return StoreConnector<AppState, DashboardPageViewModel>(
       distinct: true,
@@ -65,6 +68,7 @@ class _DashboardPageState extends State<DashboardPage>
         tabController.addListener(() {
           if (!tabController.indexIsChanging) {
             vm.dispatch(UpdateCurrentLocationIndexAction(tabController.index));
+            vm.dispatch(saveLocationIndexAction);
           }
         });
 
