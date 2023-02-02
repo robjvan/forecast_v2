@@ -50,42 +50,43 @@ class LocalStorageProvider {
     return result;
   }
 
-  // /// Save list of user locations to local storage
-  // static Future<bool> writeLocationsData(
-  //     final List<Location> userLocations) async {
-  //   bool saveSuccesful = false;
-  //   const String filename = 'user_locations';
-  //   final File file = File(
-  //     '${(await getApplicationDocumentsDirectory()).path}/$filename.json',
-  //   );
+  /// Save list of user locations to local storage
+  static Future<bool> writeLocationsData(
+    final List<Location> userLocations,
+  ) async {
+    bool saveSuccesful = false;
+    const String filename = 'user_locations';
+    final File file = File(
+      '${(await getApplicationDocumentsDirectory()).path}/$filename.json',
+    );
 
-  //   final File savedFile = await file.writeAsString(json.encode(userLocations));
+    final File savedFile = await file.writeAsString(json.encode(userLocations));
 
-  //   if (savedFile.lengthSync() > 0) {
-  //     saveSuccesful = true;
-  //   }
+    if (savedFile.lengthSync() > 0) {
+      saveSuccesful = true;
+    }
 
-  //   return saveSuccesful;
-  // }
+    return saveSuccesful;
+  }
 
-  // /// Read list of saved user locations from local storage
-  // static Future<List<dynamic>> readLocationsData() async {
-  //   List<dynamic> result = [];
-  //   const String filename = 'user_locations';
-  //   final File file = File(
-  //     '${(await getApplicationDocumentsDirectory()).path}/$filename.json',
-  //   );
-  //   List<dynamic> readResult = [];
+  /// Read list of saved user locations from local storage
+  static Future<List<dynamic>> readLocationsData() async {
+    List<dynamic> result = [];
+    const String filename = 'user_locations';
+    final File file = File(
+      '${(await getApplicationDocumentsDirectory()).path}/$filename.json',
+    );
+    List<dynamic> readResult = [];
 
-  //   if (file.existsSync()) {
-  //     try {
-  //       readResult = json.decode(await file.readAsString());
-  //     } on Exception catch (_) {}
-  //     if (readResult.isNotEmpty) {
-  //       result = readResult;
-  //     }
-  //   }
+    if (file.existsSync()) {
+      try {
+        readResult = json.decode(await file.readAsString());
+      } on Exception catch (_) {}
+      if (readResult.isNotEmpty) {
+        result = readResult;
+      }
+    }
 
-  //   return result;
-  // }
+    return result;
+  }
 }

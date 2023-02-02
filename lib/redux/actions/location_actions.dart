@@ -73,7 +73,7 @@ ThunkAction<AppState> addLocationToListAction(final Location newLocation) =>
         await store.dispatch(UpdateLocationListAction(newLocationsList));
 
         /// Save updated locations list to local storage
-        // await store.dispatch(saveUserLocationsAction(newLocationsList));
+        await store.dispatch(saveUserLocationsAction(newLocationsList));
 
         /// Update active index to newly added location
         store.dispatch(UpdateCurrentLocationIndexAction(locationIndex));
@@ -91,32 +91,52 @@ ThunkAction<AppState> removeLocationFromListAction(final int index) =>
       // Dispatch action to update locationList
       store.dispatch(UpdateLocationListAction(newLocationsList));
 
+      /// Save updated locations list to local storage
+      store.dispatch(saveUserLocationsAction(newLocationsList));
+
       // Dispatch action to update weatherDataList
       store.dispatch(UpdateWeatherDataListAction(newWeatherDataList));
     };
 
-// /// Save user settings to local storage
-// ThunkAction<AppState> saveUserLocationsAction(
-//         final List<Location> userLocations) =>
-//     (final Store<AppState> store) async {
-//       final bool saveSuccessful =
-//           await LocalStorageProvider.writeLocationsData(userLocations);
-//       if (!saveSuccessful) {
-//         Get.snackbar(
-//           'Error',
-//           'There was an error saving settings, please try again later', // TODO(Rob): Add translation strings
-//         );
-//       }
-//     };
+/// Save user settings to local storage
+ThunkAction<AppState> saveUserLocationsAction(
+  final List<Location> userLocations,
+) =>
+    (final Store<AppState> store) async {
+      final bool saveSuccessful =
+          await LocalStorageProvider.writeLocationsData(userLocations);
+      if (!saveSuccessful) {
+        Get.snackbar(
+          'Error',
+          'There was an error saving settings, please try again later', // TODO(Rob): Add translation strings
+        );
+      }
+    };
 
-// ThunkAction<AppState> loadUserLocationsAction() =>
-//     (final Store<AppState> store) async {
-//       final List<dynamic> loadResults =
-//           await LocalStorageProvider.readLocationsData();
+ThunkAction<AppState> loadUserLocationsAction =
+    (final Store<AppState> store) async {
+  /// Load original list
+  final List<Location> locationList =
+      List<Location>.from(store.state.locations);
 
-//       if (loadResults.isNotEmpty) {
-//         for (final Map<String, dynamic> location in loadResults) {
-//           store.dispatch(addLocationToListAction(Location.fromJson(location)));
-//         }
-//       }
-//     };
+  /// Load local data
+  final List<dynamic> loadResults =
+      await LocalStorageProvider.readLocationsData();
+
+  if (loadResults.isNotEmpty) {
+    for (final Map<String, dynamic> location in loadResults) {
+      // create new location object and add to locationList
+      final Location nextLocation = Location.fromJson(location);
+      locationList.add(nextLocation);
+
+      // update locationList in state
+      await store.dispatch(UpdateLocationListAction(locationList));
+
+      // get index of newly added location
+      final int locationIndex = locationList.indexOf(nextLocation);
+
+      /// Fetch weather data for the new location
+      await store.dispatch(fetchWeatherDataAction(locationIndex, true));
+    }
+  }
+};

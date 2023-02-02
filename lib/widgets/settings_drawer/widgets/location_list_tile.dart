@@ -107,7 +107,8 @@ class LocationListTile extends StatelessWidget {
                       }
 
                       /// Dispatch action to remove location from lists
-                      viewModel.dispatch(removeLocationFromListAction(index));
+                      await viewModel
+                          .dispatch(removeLocationFromListAction(index));
                     },
                     icon: Icon(
                       Icons.delete,

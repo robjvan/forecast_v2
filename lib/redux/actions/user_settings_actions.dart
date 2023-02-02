@@ -2,8 +2,6 @@
 
 import 'package:forecast_v3/models/models.dart';
 import 'package:forecast_v3/providers/local_storage_provider.dart';
-import 'package:forecast_v3/redux/actions.dart';
-import 'package:forecast_v3/redux/actions/location_actions.dart';
 import 'package:get/get.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';

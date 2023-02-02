@@ -24,20 +24,24 @@ class _DashboardPageState extends State<DashboardPage>
       store.dispatch(const SetLoadingStateAction(LoadingState.loading));
     }
 
-    /// Fetch saved user settings
+    /// Check for saved user settings
     final Map<String, dynamic> localData =
         await LocalStorageProvider.readSettingsData();
+
     if (localData.isNotEmpty) {
-      // await store.dispatch(loadUserLocationsAction());
+      /// Also load user's saved locations
+      await store.dispatch(loadUserLocationsAction);
       final UserSettings userSettings = UserSettings.fromJson(localData);
       store.dispatch(UpdateUserSettingsAction(userSettings));
     }
+
+    /// Grab user's current location again in case the saved location is no longer accurate
     await store.dispatch(grabUserLocationAction);
     await store.dispatch(fetchWeatherDataAction(0, true));
     store.dispatch(const SetLoadingStateAction(LoadingState.done));
   }
 
-  @override
+  @override 
   Widget build(final BuildContext context) {
     return StoreConnector<AppState, DashboardPageViewModel>(
       distinct: true,
