@@ -24,6 +24,7 @@ dependencies:
   google_geocoding_api: ^1.2.0
   google_places_flutter: ^2.0.5
   http: ^0.13.5
+  path_provider: ^2.0.12
   pull_to_refresh: ^2.0.0
   redux: ^5.0.0
   redux_logging: ^0.5.0

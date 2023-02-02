@@ -28,10 +28,6 @@ ThunkAction<AppState> fetchWeatherDataAction(
         'long': store.state.locations[locationListIndex].longitude!
       };
 
-      // /// Pull location name from passed data
-      // final String locationString =
-      //     '${store.state.locations[locationListIndex].name}, ${store.state.locations[locationListIndex].region}';
-
       // Fetch weather data from API
       final APIResponse<dynamic> apiResponse =
           await WeatherDataProvider.fetchWeatherData(
@@ -93,21 +89,16 @@ ThunkAction<AppState> fetchWeatherDataAction(
           weatherAlerts: <APIAlert>[...apiResult.weatherAlerts],
         );
 
-        // Update weather data in weather data list
-        // if (locationListIndex == 0) {
+        // Update weather data in weather data list for given index
+        if (weatherDataList.length > locationListIndex) {
+          weatherDataList.removeAt(locationListIndex);
+          weatherDataList.insert(locationListIndex, weatherData);
+        } else {
           weatherDataList.add(weatherData);
-        // } else {
-        //   // if (weatherDataList.length > locationListIndex) {
-
-        //     weatherDataList.removeAt(locationListIndex);
-        //     weatherDataList.insert(locationListIndex, weatherData);
-        //   } else {
-        //     weatherDataList.add(weatherData);
-        //   }
-        // }
+        }
 
         // Send new weatherData list to reducer
-        store.dispatch(
+        await store.dispatch(
           UpdateWeatherDataListAction(weatherDataList),
         );
       } else {
@@ -115,7 +106,7 @@ ThunkAction<AppState> fetchWeatherDataAction(
           'There was a problem fetching weather data ${apiResponse.message}',
         );
       }
-      store.dispatch(const SetLoadingStateAction(LoadingState.done));
+      // store.dispatch(const SetLoadingStateAction(LoadingState.done));
     };
 
 class UpdateWeatherDataListAction {

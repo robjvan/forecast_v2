@@ -18,7 +18,7 @@ class AppRoutes {
   // };
 
   static final List<GetPage<dynamic>> getPages = <GetPage<dynamic>>[
-    GetPage(
+    GetPage<dynamic>(
       name: DashboardPage.routeName,
       page: DashboardPage.new,
     ),

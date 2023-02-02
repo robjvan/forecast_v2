@@ -45,7 +45,7 @@ class _LocationSelectorState extends State<LocationSelector> {
         textEditingController: _locationController,
         // countries: const <String>['ca', 'us', 'uk'],
         isLatLngRequired: true,
-        getPlaceDetailWithLatLng: (final Prediction prediction) {
+        getPlaceDetailWithLatLng: (final Prediction prediction) async {
           /// This method will return latlng with place detail
           final Location newLocation = Location(
             latitude: double.parse(prediction.lat!),
@@ -55,7 +55,9 @@ class _LocationSelectorState extends State<LocationSelector> {
                 ? prediction.description!.split(', ')[1]
                 : '',
           );
-          widget.viewModel.dispatch(addLocationToListAction(newLocation));
+          await widget.viewModel.dispatch(addLocationToListAction(newLocation));
+          widget.viewModel
+              .dispatch(const SetLoadingStateAction(LoadingState.done));
         },
         itmClick: (final Prediction prediction) {
           _locationController.clear();

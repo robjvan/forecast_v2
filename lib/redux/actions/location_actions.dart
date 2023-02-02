@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:forecast_v3/models/models.dart';
 import 'package:forecast_v3/providers/geolocation_provider.dart';
+import 'package:forecast_v3/providers/local_storage_provider.dart';
 import 'package:forecast_v3/redux/actions.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -65,12 +66,14 @@ ThunkAction<AppState> addLocationToListAction(final Location newLocation) =>
         newLocationsList.add(newLocation);
         final int locationIndex = newLocationsList.indexOf(newLocation);
 
-
         /// Fetch weather data for the new location
         await store.dispatch(fetchWeatherDataAction(locationIndex, true));
 
         /// Add new location to AppState.locationsList
         await store.dispatch(UpdateLocationListAction(newLocationsList));
+
+        /// Save updated locations list to local storage
+        // await store.dispatch(saveUserLocationsAction(newLocationsList));
 
         /// Update active index to newly added location
         store.dispatch(UpdateCurrentLocationIndexAction(locationIndex));
@@ -91,3 +94,29 @@ ThunkAction<AppState> removeLocationFromListAction(final int index) =>
       // Dispatch action to update weatherDataList
       store.dispatch(UpdateWeatherDataListAction(newWeatherDataList));
     };
+
+// /// Save user settings to local storage
+// ThunkAction<AppState> saveUserLocationsAction(
+//         final List<Location> userLocations) =>
+//     (final Store<AppState> store) async {
+//       final bool saveSuccessful =
+//           await LocalStorageProvider.writeLocationsData(userLocations);
+//       if (!saveSuccessful) {
+//         Get.snackbar(
+//           'Error',
+//           'There was an error saving settings, please try again later', // TODO(Rob): Add translation strings
+//         );
+//       }
+//     };
+
+// ThunkAction<AppState> loadUserLocationsAction() =>
+//     (final Store<AppState> store) async {
+//       final List<dynamic> loadResults =
+//           await LocalStorageProvider.readLocationsData();
+
+//       if (loadResults.isNotEmpty) {
+//         for (final Map<String, dynamic> location in loadResults) {
+//           store.dispatch(addLocationToListAction(Location.fromJson(location)));
+//         }
+//       }
+//     };
