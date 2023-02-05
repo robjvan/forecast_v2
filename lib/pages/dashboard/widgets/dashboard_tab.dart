@@ -3,9 +3,9 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:forecast_v3/models/models.dart';
 import 'package:forecast_v3/pages/dashboard/dashboard_view_model.dart';
 
-class DashboardTabWidget extends StatelessWidget {
+class DashboardTab extends StatelessWidget {
   final WeatherData weatherData;
-  const DashboardTabWidget({
+  const DashboardTab({
     required this.weatherData,
     super.key,
   });

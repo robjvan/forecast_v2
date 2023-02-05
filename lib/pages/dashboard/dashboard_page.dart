@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:forecast_v3/models/models.dart';
 import 'package:forecast_v3/pages/dashboard/dashboard_view_model.dart';
-import 'package:forecast_v3/pages/dashboard/widgets/dashboard_tab_widget.dart';
+import 'package:forecast_v3/pages/dashboard/widgets/dashboard_tab.dart';
 import 'package:forecast_v3/providers/local_storage_provider.dart';
 import 'package:forecast_v3/redux/actions.dart';
 import 'package:forecast_v3/widgets/widgets.dart';
@@ -78,7 +78,7 @@ class _DashboardPageState extends State<DashboardPage>
         }) {
           final List<Widget> dashboardTabs = <Widget>[];
           for (final WeatherData weatherData in weatherDataList) {
-            dashboardTabs.add(DashboardTabWidget(weatherData: weatherData));
+            dashboardTabs.add(DashboardTab(weatherData: weatherData));
           }
 
           return dashboardTabs;
