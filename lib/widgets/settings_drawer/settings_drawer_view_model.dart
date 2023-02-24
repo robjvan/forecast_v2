@@ -34,6 +34,7 @@ class SettingsDrawerViewModel {
   final int activeIndex;
   final Function(dynamic) dispatch;
   final Function updateCurrentIndex;
+  final Function() saveUserSettings;
 
   const SettingsDrawerViewModel({
     required this.panelColor,
@@ -63,6 +64,7 @@ class SettingsDrawerViewModel {
     required this.activeIndex,
     required this.dispatch,
     required this.updateCurrentIndex,
+    required this.saveUserSettings,
   });
 
   factory SettingsDrawerViewModel.create(final Store<AppState> store) {
@@ -205,9 +207,11 @@ class SettingsDrawerViewModel {
         case 1150:
         case 1153:
         case 1180:
+        case 1183:
         case 1198:
         case 1240:
         case 1249:
+        case 1273:
           return WeatherType.lightRainy;
         case 1168:
         case 1186:
@@ -265,6 +269,12 @@ class SettingsDrawerViewModel {
       store.dispatch(saveLocationIndexAction);
     }
 
+    void saveUserSettings() {
+      store.dispatch(
+        saveUserSettingsAction(store.state.userSettings),
+      );
+    }
+
     return SettingsDrawerViewModel(
       activeIndex: store.state.currentLocationIndex,
       aqiUnits: store.state.userSettings.aqiUnits,
@@ -311,6 +321,7 @@ class SettingsDrawerViewModel {
       weatherType: weatherType,
       dispatch: store.dispatch,
       updateCurrentIndex: updateCurrentIndex,
+      saveUserSettings: saveUserSettings,
     );
   }
 }
