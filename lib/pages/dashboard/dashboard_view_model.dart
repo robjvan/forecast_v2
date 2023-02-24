@@ -31,20 +31,24 @@ class DashboardPageViewModel {
       return store.state.currentLocationIndex;
     }
 
-    populateWeatherData() {
-      final List<WeatherData> weatherDataList = [];
-      for (var element in store.state.weatherData) {
-        weatherDataList.add(element);
+    List<WeatherData> populateWeatherData() {
+      final List<WeatherData> weatherDataList = <WeatherData>[];
+      for (final WeatherData wd in store.state.weatherData) {
+        weatherDataList.add(wd);
       }
       return weatherDataList;
+
+      // return store.state.weatherData.map((final WeatherData wd) => wd).toList();
     }
 
-    populateLocationsList() {
-      final List<Location> locationsList = [];
-      for (var element in store.state.locations) {
-        locationsList.add(element);
+    List<Location> populateLocationsList() {
+      final List<Location> locationsList = <Location>[];
+      for (final Location loc in store.state.locations) {
+        locationsList.add(loc);
       }
       return locationsList;
+
+      // return store.state.locations.map((final Location loc) => loc).toList();
     }
 
     return DashboardPageViewModel(
@@ -58,11 +62,11 @@ class DashboardPageViewModel {
           : -999,
       currentTempK: -999,
       name: store.state.locations.isNotEmpty
-          ? store.state.locations[getCurrentLocationIndex()].name!
+          ? store.state.locations[getCurrentLocationIndex()].name != null
+              ? store.state.locations[getCurrentLocationIndex()].name!
+              : ''
           : '',
       loadingState: store.state.loadingState,
-      // weatherDataList: store.state.weatherData,
-      // locationList: store.state.locations,
       weatherDataList: populateWeatherData(),
       locationList: populateLocationsList(),
       activeLocationIndex: store.state.currentLocationIndex,
