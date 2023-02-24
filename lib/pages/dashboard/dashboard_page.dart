@@ -76,12 +76,15 @@ class _DashboardPageState extends State<DashboardPage>
         List<Widget> buildDashboardTabs({
           required final List<WeatherData> weatherDataList,
         }) {
-          final List<Widget> dashboardTabs = <Widget>[];
-          for (final WeatherData weatherData in weatherDataList) {
-            dashboardTabs.add(DashboardTab(weatherData: weatherData));
-          }
+          // final List<Widget> dashboardTabs = <Widget>[];
+          // for (final WeatherData weatherData in weatherDataList) {
+          //   dashboardTabs.add(DashboardTab(weatherData: weatherData));
+          // }
+          // return dashboardTabs;
 
-          return dashboardTabs;
+          return weatherDataList
+              .map((final WeatherData elem) => DashboardTab(weatherData: elem))
+              .toList();
         }
 
         return Scaffold(
