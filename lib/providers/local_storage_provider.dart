@@ -14,6 +14,8 @@ class LocalStorageProvider {
       '${(await getApplicationDocumentsDirectory()).path}/$filename.json',
     );
 
+    /// TODO(Rob): Add backup file of old settings
+
     /// Read data from storage and store it in [savedFile]
     final File savedFile = await file.writeAsString(
       json.encode(userSettings.toJson()),
@@ -22,7 +24,7 @@ class LocalStorageProvider {
     /// Check the length of [savedFile].
     /// If it is over 0 bytes, save was successful.
     //! If the save failed but the old data was not cleared, this would give a false positive
-    // TODO(Rob): Fix check for successful save
+    // TODO(Rob): Add check for successful save
     if (savedFile.lengthSync() > 0) {
       saveSuccesful = true;
     }
