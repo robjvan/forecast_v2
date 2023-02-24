@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
 import 'package:forecast_v3/redux/actions.dart';
@@ -103,6 +102,7 @@ class LocationListTile extends StatelessWidget {
                             viewModel.activeIndex - 1,
                           ),
                         );
+                        viewModel.saveUserSettings();
                       }
 
                       /// Dispatch action to remove location from lists
