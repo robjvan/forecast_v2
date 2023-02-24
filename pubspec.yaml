@@ -18,6 +18,7 @@ dependencies:
   flutter_redux: ^0.10.0
   flutter_svg: ^1.1.6
   flutter_weather_bg_null_safety: ^1.0.0
+  flutter_weather_icons: ^1.0.2
   geolocator: ^9.0.2
   geolocator_windows: ^0.1.1
   get: ^4.6.5
