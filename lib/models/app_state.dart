@@ -17,15 +17,14 @@ class AppState {
     required this.loadingState,
   });
 
-  factory AppState.initial() {
-    return AppState(
+  factory AppState.initial() => AppState(
       locations: <Location>[],
       weatherData: <WeatherData>[],
       userSettings: UserSettings.initial(),
       currentLocationIndex: 0,
       loadingState: LoadingState.done,
     );
-  }
+  
 
   AppState.fromJson(final Map<String, dynamic> json)
       : currentLocationIndex = json['currentLocationIndex'],
