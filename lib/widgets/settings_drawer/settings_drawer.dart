@@ -10,11 +10,15 @@ import 'package:get/get.dart';
 class SettingsDrawer extends StatelessWidget {
   const SettingsDrawer({final Key? key}) : super(key: key);
 
-  Widget _buildSettingsSection(final SettingsDrawerViewModel viewModel) =>
-      DecoratedBox(
+  Widget _buildSettingsSection(final SettingsDrawerViewModel viewModel) {
+    Widget _buildDivider() => const Divider(endIndent: 16.0, indent: 16.0);
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0),
+      child: DecoratedBox(
         decoration: BoxDecoration(
           color: viewModel.panelColor,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(8.0),
         ),
         child: ExpansionTile(
           title: Text(
@@ -25,52 +29,70 @@ class SettingsDrawer extends StatelessWidget {
           iconColor: AppColors.grey,
           collapsedIconColor: AppColors.grey,
           children: <Widget>[
-            LanguageSelector(viewModel),
-            const SizedBox(height: 16),
-            AnimatedBgToggle(viewModel),
-            const SizedBox(height: 16),
-            DarkModeToggle(viewModel),
-            const SizedBox(height: 16),
             TempUnitsSelector(viewModel),
-            const SizedBox(height: 16),
-            WindUnitsSelector(viewModel),
-            const SizedBox(height: 16),
-            AirPressureUnitsSelector(viewModel),
-            const SizedBox(height: 16),
-            AirQualityUnitsSelector(viewModel),
-            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: WindUnitsSelector(viewModel),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: AirPressureUnitsSelector(viewModel),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+              child: AirQualityUnitsSelector(viewModel),
+            ),
+            _buildDivider(),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: AnimatedBgToggle(viewModel),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+              child: DarkModeToggle(viewModel),
+            ),
+            _buildDivider(),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, bottom: 16.0),
+              child: LanguageSelector(viewModel),
+            ),
           ],
         ),
-      );
+      ),
+    );
+  }
 
-  Widget _buildLocationSection(
-    final SettingsDrawerViewModel viewModel,
-    final double sw,
-  ) =>
-      DecoratedBox(
-        decoration: BoxDecoration(
-          color: viewModel.panelColor,
-          borderRadius: BorderRadius.circular(8),
+  Widget _buildLocationSection(final SettingsDrawerViewModel viewModel) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: viewModel.panelColor,
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: ExpansionTile(
+        childrenPadding: const EdgeInsets.only(bottom: 8.0),
+        title: Text(
+          'settings.locations_header'.tr,
+          style: AppStyles.drawerHeaderTextStyle
+              .copyWith(color: viewModel.textColor),
         ),
-        child: ExpansionTile(
-          // title: _buildLocationsHeader(viewModel),
-          title: Text(
-            'settings.locations_header'.tr,
-            style: AppStyles.drawerHeaderTextStyle
-                .copyWith(color: viewModel.textColor),
+        iconColor: AppColors.grey,
+        collapsedIconColor: AppColors.grey,
+        children: <Widget>[
+          LocationSelector(viewModel),
+          const Padding(
+            padding: EdgeInsets.only(top: 8.0),
+            child: Divider(indent: 16.0, endIndent: 16.0),
           ),
-          iconColor: AppColors.grey,
-          collapsedIconColor: AppColors.grey,
-          children: <Widget>[
-            LocationSelector(viewModel),
-            LocationListWidget(viewModel),
-            const SizedBox(height: 8),
-          ],
-        ),
-      );
+          LocationListWidget(viewModel),
+        ],
+      ),
+    );
+  }
 
-  Widget _buildAboutAppSection(final SettingsDrawerViewModel viewModel) =>
-      DecoratedBox(
+  Widget _buildAboutAppSection(final SettingsDrawerViewModel viewModel) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0),
+      child: DecoratedBox(
         decoration: BoxDecoration(
           color: viewModel.panelColor,
           borderRadius: BorderRadius.circular(8.0),
@@ -123,28 +145,29 @@ class SettingsDrawer extends StatelessWidget {
             ),
           ],
         ),
-      );
+      ),
+    );
+  }
 
-  Widget _buildCloseSettingsBtn(
-    final SettingsDrawerViewModel viewModel,
-    final BuildContext context,
-  ) =>
-      ElevatedButton(
+  Widget _buildCloseSettingsBtn(final SettingsDrawerViewModel viewModel) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 32.0),
+      child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: viewModel.panelColor,
           // primary: viewModel.panelColor,
           foregroundColor: viewModel.textColor,
           // onPrimary: viewModel.textColor,
         ),
+        onPressed: Get.back,
         child: Text('close'.tr, style: AppStyles.settingsButtonStyle),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-      );
+      ),
+    );
+  }
 
   @override
   Widget build(final BuildContext context) {
-    final double sw = MediaQuery.of(context).size.width;
+    // final double sw = MediaQuery.of(context).size.width;
     final double sh = MediaQuery.of(context).size.height;
 
     return StoreConnector<AppState, SettingsDrawerViewModel>(
@@ -160,7 +183,7 @@ class SettingsDrawer extends StatelessWidget {
           child: SafeArea(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
+                padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 16.0),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Theme(
@@ -168,13 +191,10 @@ class SettingsDrawer extends StatelessWidget {
                         .copyWith(dividerColor: Colors.transparent),
                     child: Column(
                       children: <Widget>[
+                        _buildLocationSection(viewModel),
                         _buildSettingsSection(viewModel),
-                        const SizedBox(height: 16.0),
-                        _buildLocationSection(viewModel, sw),
-                        const SizedBox(height: 16.0),
                         _buildAboutAppSection(viewModel),
-                        const SizedBox(height: 32.0),
-                        _buildCloseSettingsBtn(viewModel, context),
+                        _buildCloseSettingsBtn(viewModel),
                       ],
                     ),
                   ),
