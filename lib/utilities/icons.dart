@@ -8,7 +8,6 @@ class AppIcons {
   static const String searchLocation = 'assets/icons/map-search-outline.svg';
   static const String add = 'assets/icons/plus.svg';
   static const String radiobutton = 'assets/icons/radiobox-blank.svg';
-  static const String radiobuttonMarked = 'assets/icons/radiobox-marked.svg';
 }
 
 class WeatherIcons {
