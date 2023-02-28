@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         locale: Get.deviceLocale,
         fallbackLocale: const Locale('en', 'US'),
         getPages: AppRoutes.getPages,
-        title: 'Forecast',
+        title: 'app_title'.tr,
         theme: AppTheme.themeData,
         initialRoute: AppRoutes.initialRoute,
       ),
