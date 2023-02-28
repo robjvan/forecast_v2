@@ -7,16 +7,14 @@ Weather information app built with Flutter. Offers animated backgrounds, support
 ## Features
 ### Support multiple locations
 
-<img width="150" height="300" src="https://i.robjvan.ca/forecast/locations.png">
-<img width="150" height="300" src="https://i.robjvan.ca/forecast/plain_backgrounds.png">
+<img width="150" height="300" src="https://i.robjvan.ca/forecast/locations.png"> <img width="150" height="300" src="https://i.robjvan.ca/forecast/plain_backgrounds.png">
 
 - Easily save and track all your favorite locations
 - Animated backgrounds are available for all weather conditions
 
 ### Customization
 
-<img width="150" height="300" src="https://i.robjvan.ca/forecast/settings_darkmode.png">
-<img width="150" height="300" src="https://i.robjvan.ca/forecast/settings.png">
+<img width="150" height="300" src="https://i.robjvan.ca/forecast/settings_darkmode.png"> <img width="150" height="300" src="https://i.robjvan.ca/forecast/settings.png">
 
 - Supports a wide variety of units for displaying weather data
 - Support for English, French, and Spanish
