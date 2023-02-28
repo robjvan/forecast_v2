@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
 import 'package:forecast_v3/models/models.dart';
 import 'package:forecast_v3/pages/dashboard/dashboard_view_model.dart';
 import 'package:forecast_v3/pages/dashboard/widgets/dashboard_tab.dart';
 import 'package:forecast_v3/providers/local_storage_provider.dart';
 import 'package:forecast_v3/redux/actions.dart';
+import 'package:forecast_v3/utilities/utilities.dart';
 import 'package:forecast_v3/widgets/widgets.dart';
+import 'package:get/get.dart';
 import 'package:redux/redux.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -18,6 +21,7 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage>
     with TickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   Future<void> onInit(final Store<AppState> store) async {
     /// Set app loading state to loading
     if (store.state.loadingState != LoadingState.loading) {
@@ -76,31 +80,77 @@ class _DashboardPageState extends State<DashboardPage>
         List<Widget> buildDashboardTabs({
           required final List<WeatherData> weatherDataList,
         }) {
-          // final List<Widget> dashboardTabs = <Widget>[];
-          // for (final WeatherData weatherData in weatherDataList) {
-          //   dashboardTabs.add(DashboardTab(weatherData: weatherData));
-          // }
-          // return dashboardTabs;
-
           return weatherDataList
               .map((final WeatherData elem) => DashboardTab(weatherData: elem))
               .toList();
         }
 
-        return Scaffold(
-          appBar: AppBar(),
-          drawer: const SettingsDrawer(),
-          body: Center(
-            child: vm.loadingState == LoadingState.loading
-                ? const CircularProgressIndicator()
-                : TabBarView(
-                    controller: tabController,
-                    children: buildDashboardTabs(
-                      weatherDataList: vm.weatherDataList,
+        /// Build the animated background
+        Widget buildBackground(final DashboardPageViewModel vm) {
+          return WeatherBg(
+            weatherType: vm.weatherType(
+              vm.weatherDataList[vm.activeLocationIndex].currentConditions
+                  .condition!.code!,
+            ),
+            width: Get.width,
+            height: Get.height,
+          );
+        }
+
+        /// Build a chip if there are active weather alerts
+        Widget buildAlertChip(final DashboardPageViewModel vm) {
+          /// Check if there are active alerts
+          final bool activeAlerts = vm.activeAlerts.isNotEmpty;
+
+          return activeAlerts
+              ? ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                    backgroundColor: Colors.red,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-          ),
-        );
+                  onPressed: () {
+                    // TODO(Rob): Add dialog for weather alert details
+                  },
+                  child: const Text('ALERT'),
+                )
+              : Container();
+        }
+
+        return vm.loadingState == LoadingState.loading
+            ? const Scaffold(body: Center(child: CircularProgressIndicator()))
+            : Stack(
+                children: <Widget>[
+                  vm.useDynamicBackgrounds ? buildBackground(vm) : Container(),
+                  Scaffold(
+                    key: scaffoldKey,
+                    backgroundColor: Colors.transparent,
+                    appBar: AppBar(
+                      leading: IconButton(
+                        style: IconButton.styleFrom(
+                          backgroundColor: vm.cardColor,
+                        ),
+                        icon: const Icon(Icons.settings),
+                        onPressed: () => scaffoldKey.currentState!.openDrawer(),
+                      ),
+                      shadowColor: Colors.transparent,
+                      backgroundColor: Colors.transparent,
+                      title: buildAlertChip(vm),
+                      centerTitle: true,
+                    ),
+                    drawer: const SettingsDrawer(),
+                    body: TabBarView(
+                      controller: tabController,
+                      children: buildDashboardTabs(
+                        weatherDataList: vm.weatherDataList,
+                      ),
+                    ),
+                  ),
+                ],
+              );
       },
     );
   }
