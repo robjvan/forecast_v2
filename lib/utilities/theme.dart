@@ -38,6 +38,25 @@ class AppTheme {
 }
 
 class AppStyles {
+  static const TextStyle locationNameTextStyle = TextStyle(
+    fontSize: 24.0,
+    fontFamily: 'Montserrat',
+    // fontWeight: FontWeight.bold
+  );
+
+  static const TextStyle currentTempTextStyle = TextStyle(
+    fontSize: 48,
+    fontFamily: 'Montserrat',
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle currentConditionsStyle = TextStyle(
+    fontSize: 24,
+    fontFamily: 'Montserrat',
+  );
+
+
+
   static const TextStyle drawerHeaderTextStyle = TextStyle(
     fontSize: 24,
     fontFamily: 'Raleway',
