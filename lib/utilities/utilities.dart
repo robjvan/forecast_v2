@@ -5,3 +5,4 @@ export 'routes.dart';
 export 'theme.dart';
 export 'translations.dart';
 export 'validators.dart';
+export 'weather_icon_parser.dart';
