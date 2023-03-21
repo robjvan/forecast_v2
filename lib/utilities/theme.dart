@@ -45,17 +45,20 @@ class AppStyles {
   );
 
   static const TextStyle currentTempTextStyle = TextStyle(
-    fontSize: 48,
+    fontSize: 64,
     fontFamily: 'Montserrat',
-    fontWeight: FontWeight.bold,
+    // fontWeight: FontWeight.bold,
+  );
+  static const TextStyle currentFeelsLikeTextStyle = TextStyle(
+    fontSize: 18.0,
+    fontFamily: 'Montserrat',
   );
 
   static const TextStyle currentConditionsStyle = TextStyle(
     fontSize: 24,
     fontFamily: 'Montserrat',
+    fontWeight: FontWeight.bold,
   );
-
-
 
   static const TextStyle drawerHeaderTextStyle = TextStyle(
     fontSize: 24,
@@ -70,8 +73,28 @@ class AppStyles {
     // fontWeight: FontWeight.bold,
     fontFamily: 'Montserrat',
   );
+
   static const TextStyle cardBodyStyle = TextStyle(
     fontSize: 18,
+  );
+
+  static const TextStyle dataCardHeaderStyle = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 14.0,
+    fontFamily: 'Montserrat',
+  );
+
+  static const TextStyle dataCardDataStyle = TextStyle(
+    // fontWeight: FontWeight.bold,
+    fontSize: 14.0,
+    fontFamily: 'Montserrat',
+  );
+
+  static TextStyle loadingMessageTextStyle = TextStyle(
+    fontSize: 18.0,
+    overflow: TextOverflow.ellipsis,
+    color: Colors.blue[400],
+    fontFamily: 'Monserrat',
   );
 }
 
