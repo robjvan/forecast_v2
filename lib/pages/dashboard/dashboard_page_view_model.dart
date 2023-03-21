@@ -6,7 +6,6 @@ import 'package:redux/redux.dart';
 
 @immutable
 class DashboardPageViewModel {
-  final String currentTemp;
   final LoadingState loadingState;
   final String name;
   final List<WeatherData> weatherDataList;
@@ -18,10 +17,8 @@ class DashboardPageViewModel {
   final bool useDynamicBackgrounds;
   final Color cardColor;
   final Color textColor;
-  final String currentConditions;
 
   const DashboardPageViewModel({
-    required this.currentTemp,
     required this.name,
     required this.loadingState,
     required this.weatherDataList,
@@ -33,7 +30,6 @@ class DashboardPageViewModel {
     required this.useDynamicBackgrounds,
     required this.cardColor,
     required this.textColor,
-    required this.currentConditions,
   });
 
   factory DashboardPageViewModel.create(final Store<AppState> store) {
@@ -41,27 +37,7 @@ class DashboardPageViewModel {
       return store.state.currentLocationIndex;
     }
 
-    List<WeatherData> populateWeatherData() {
-      // final List<WeatherData> weatherDataList = <WeatherData>[];
-      // for (final WeatherData wd in store.state.weatherData) {
-      //   weatherDataList.add(wd);
-      // }
-      // return weatherDataList;
-
-      return store.state.weatherData.map((final WeatherData wd) => wd).toList();
-    }
-
-    List<Location> populateLocationsList() {
-      // final List<Location> locationsList = <Location>[];
-      // for (final Location loc in store.state.locations) {
-      //   locationsList.add(loc);
-      // }
-      // return locationsList;
-
-      return store.state.locations.map((final Location loc) => loc).toList();
-    }
-
-    WeatherType? weatherType(final int code) {
+    WeatherType? getWeatherType(final int code) {
       bool isDay = false;
       if (store.state.weatherData.isNotEmpty) {
         isDay = store.state.weatherData[getCurrentLocationIndex()]
@@ -77,46 +53,28 @@ class DashboardPageViewModel {
           : <APIAlert>[];
     }
 
-    String getCurrentTemp() {
-      switch (store.state.userSettings.tempUnits) {
-        case TempUnits.c:
-          return store.state.weatherData.isNotEmpty
-              ? '${store.state.weatherData[getCurrentLocationIndex()].currentConditions.temp_c!.round()}c'
-              : '-999';
-        case TempUnits.f:
-          return store.state.weatherData.isNotEmpty
-              ? '${store.state.weatherData[getCurrentLocationIndex()].currentConditions.temp_f!.round()}f'
-              : '-999';
-        case TempUnits.k:
-          return store.state.weatherData.isNotEmpty
-              ? '${(store.state.weatherData[getCurrentLocationIndex()].currentConditions.temp_c! + 273.15).round()}k'
-              : '-999';
-      }
-    }
-
     return DashboardPageViewModel(
-      currentTemp: getCurrentTemp(),
       name: store.state.locations.isNotEmpty
           ? store.state.locations[getCurrentLocationIndex()].name != null
               ? store.state.locations[getCurrentLocationIndex()].name!
               : ''
           : '',
       loadingState: store.state.loadingState,
-      weatherDataList: populateWeatherData(),
-      locationList: populateLocationsList(),
+      // weatherDataList: populateWeatherData(),
+      weatherDataList: store.state.weatherData,
+      // locationList: populateLocationsList(),
+      locationList: store.state.locations,
       activeLocationIndex: store.state.currentLocationIndex,
       dispatch: store.dispatch,
-      weatherType: weatherType,
+      weatherType: getWeatherType,
       activeAlerts: getActiveAlerts(),
       useDynamicBackgrounds: store.state.userSettings.useDynamicBackgrounds,
       cardColor: store.state.userSettings.useDarkMode
-          ? AppColors.bgColorDarkMode.withOpacity(0.6)
-          : AppColors.bgColorLightMode.withOpacity(0.6),
+          ? AppColors.bgColorDarkMode
+          : AppColors.bgColorLightMode,
       textColor: store.state.userSettings.useDarkMode
           ? AppColors.textColorDarkMode
           : AppColors.textColorLightMode,
-      currentConditions: store.state.weatherData[getCurrentLocationIndex()]
-          .currentConditions.condition!.text!,
     );
   }
 }
