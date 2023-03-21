@@ -9,7 +9,3 @@ class AppIcons {
   static const String add = 'assets/icons/plus.svg';
   static const String radiobutton = 'assets/icons/radiobox-blank.svg';
 }
-
-class WeatherIcons {
-  // static const String sun = 'assets/weather-icons/sun.svg';
-}
