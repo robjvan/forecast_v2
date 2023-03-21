@@ -18,13 +18,12 @@ class AppState {
   });
 
   factory AppState.initial() => AppState(
-      locations: <Location>[],
-      weatherData: <WeatherData>[],
-      userSettings: UserSettings.initial(),
-      currentLocationIndex: 0,
-      loadingState: LoadingState.done,
-    );
-  
+        locations: <Location>[],
+        weatherData: <WeatherData>[],
+        userSettings: UserSettings.initial(),
+        currentLocationIndex: 0,
+        loadingState: LoadingState.done,
+      );
 
   AppState.fromJson(final Map<String, dynamic> json)
       : currentLocationIndex = json['currentLocationIndex'],
@@ -35,7 +34,6 @@ class AppState {
         userSettings = UserSettings.fromJson(json),
         weatherData = <WeatherData>[];
 
-  
   Map<String, dynamic> toJson() => <String, dynamic>{
         'locations': locations,
         'userSettings': userSettings,
