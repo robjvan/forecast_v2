@@ -1,5 +1,6 @@
 final Map<String, String> englishStrings = {
   'app_title': 'Forecast',
+  'loading': 'Loading data, please wait...',
   'settings.settings_header': 'Settings',
   'settings.select_language': 'Select Language',
   'settings.en': 'English',
