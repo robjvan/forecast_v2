@@ -100,7 +100,7 @@ ThunkAction<AppState> removeLocationFromListAction(final int index) =>
       store.dispatch(UpdateWeatherDataListAction(newWeatherDataList));
     };
 
-/// Save user settings to local storage
+/// Save user locations to local storage
 ThunkAction<AppState> saveUserLocationsAction(
   final List<Location> userLocations,
 ) =>
