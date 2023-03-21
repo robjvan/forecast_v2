@@ -123,14 +123,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  flutter_weather_icons:
-    dependency: "direct main"
-    description:
-      name: flutter_weather_icons
-      sha256: "6d4663979884262c8e8c5741de6000d7ff36080d93d6b6d98c7ca746e6307560"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.2"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -501,6 +493,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  weather_icons:
+    dependency: "direct main"
+    description:
+      name: weather_icons
+      sha256: "76bd96fda0b723fba74a35083b6d77313306aae4c0f915636cbb7299b69d3b91"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   win32:
     dependency: transitive
     description:
