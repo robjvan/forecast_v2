@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
 import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/pages/dashboard/dashboard_view_model.dart';
-import 'package:forecast_v3/pages/dashboard/widgets/dashboard_tab.dart';
+import 'package:forecast_v3/pages/dashboard/dashboard_page_view_model.dart';
+import 'package:forecast_v3/pages/dashboard/widgets/widgets.dart';
+import 'package:forecast_v3/pages/settings_drawer/settings_drawer.dart';
 import 'package:forecast_v3/providers/local_storage_provider.dart';
 import 'package:forecast_v3/redux/actions.dart';
-import 'package:forecast_v3/utilities/utilities.dart';
-import 'package:forecast_v3/widgets/widgets.dart';
 import 'package:get/get.dart';
 import 'package:redux/redux.dart';
 
@@ -19,9 +18,9 @@ class DashboardPage extends StatefulWidget {
   static const String routeName = '/dashboard';
 }
 
-class _DashboardPageState extends State<DashboardPage>
-    with TickerProviderStateMixin {
+class _DashboardPageState extends State<DashboardPage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
   Future<void> onInit(final Store<AppState> store) async {
     /// Set app loading state to loading
     if (store.state.loadingState != LoadingState.loading) {
@@ -48,6 +47,73 @@ class _DashboardPageState extends State<DashboardPage>
     store.dispatch(const SetLoadingStateAction(LoadingState.done));
   }
 
+  /// Build the animated background
+  Widget buildBackground(final DashboardPageViewModel vm) {
+    return WeatherBg(
+      weatherType: vm.weatherType(
+        vm.weatherDataList[vm.activeLocationIndex].currentConditions.condition!
+            .code!,
+      ),
+      width: Get.width,
+      height: Get.height,
+    );
+  }
+
+  /// Build the weather data widgets
+  Widget buildBodyContent(final DashboardPageViewModel vm) {
+    return SingleChildScrollView(
+      child: Column(
+        children: const <Widget>[
+          SizedBox(height: 72),
+          CurrentConditionsBox(),
+          SizedBox(height: 8),
+          EnvironmentalConditionsBox(),
+          SizedBox(height: 8),
+          // TODO(Rob): Add more data widgets
+          HourlyForecast()
+        ],
+      ),
+    );
+  }
+
+  /// Build the settings, location, and alert buttons
+  Widget buildButtonRow(final DashboardPageViewModel vm) {
+    // /// Build button to open settings drawer
+    // Widget buildSettingsButton() {
+    //   return IconButton(
+    //     style: IconButton.styleFrom(
+    //       backgroundColor: vm.cardColor.withOpacity(0.5),
+    //     ),
+    //     icon: Icon(Icons.settings, color: vm.textColor),
+    //     onPressed: () => scaffoldKey.currentState!.openDrawer(),
+    //   );
+    // }
+
+    /// Build button to show available locations
+    Widget buildLocationsButton() {
+      return IconButton(
+        style: IconButton.styleFrom(
+          backgroundColor: vm.cardColor.withOpacity(0.5),
+        ),
+        icon: Icon(Icons.location_city, color: vm.textColor),
+        onPressed: () {
+          // TODO(Rob): Add dialog to change current location
+        },
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(8.0, 24.0, 8.0, 0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          SettingsButton(scaffoldKey),
+          const LocationsButton(),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(final BuildContext context) {
     return StoreConnector<AppState, DashboardPageViewModel>(
@@ -55,98 +121,20 @@ class _DashboardPageState extends State<DashboardPage>
       onInit: onInit,
       converter: DashboardPageViewModel.create,
       builder: (final BuildContext context, final DashboardPageViewModel vm) {
-        /**
-         * Create a tab controller with dynamic length based on the number of 
-         * locations in our list
-         */
-        final TabController tabController = TabController(
-          length: vm.locationList.length,
-          initialIndex: vm.activeLocationIndex,
-          vsync: this,
-        );
-
-        /**
-         * Add a listener so we can reassign the "active location index" when 
-         * we swipe to change pages
-         */
-        tabController.addListener(() {
-          if (!tabController.indexIsChanging) {
-            vm.dispatch(UpdateCurrentLocationIndexAction(tabController.index));
-            vm.dispatch(saveLocationIndexAction);
-          }
-        });
-
-        /// Build out the tabs (pages) using a template widget and passed data
-        List<Widget> buildDashboardTabs({
-          required final List<WeatherData> weatherDataList,
-        }) {
-          return weatherDataList
-              .map((final WeatherData elem) => DashboardTab(weatherData: elem))
-              .toList();
-        }
-
-        /// Build the animated background
-        Widget buildBackground(final DashboardPageViewModel vm) {
-          return WeatherBg(
-            weatherType: vm.weatherType(
-              vm.weatherDataList[vm.activeLocationIndex].currentConditions
-                  .condition!.code!,
-            ),
-            width: Get.width,
-            height: Get.height,
-          );
-        }
-
-        /// Build a chip if there are active weather alerts
-        Widget buildAlertChip(final DashboardPageViewModel vm) {
-          /// Check if there are active alerts
-          final bool activeAlerts = vm.activeAlerts.isNotEmpty;
-
-          return activeAlerts
-              ? ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    textStyle: const TextStyle(fontWeight: FontWeight.bold),
-                    backgroundColor: Colors.red,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  onPressed: () {
-                    // TODO(Rob): Add dialog for weather alert details
-                  },
-                  child: const Text('ALERT'),
-                )
-              : Container();
-        }
-
         return vm.loadingState == LoadingState.loading
-            ? const Scaffold(body: Center(child: CircularProgressIndicator()))
+            ? const LoadingWidget()
             : Stack(
                 children: <Widget>[
                   vm.useDynamicBackgrounds ? buildBackground(vm) : Container(),
                   Scaffold(
                     key: scaffoldKey,
                     backgroundColor: Colors.transparent,
-                    appBar: AppBar(
-                      leading: IconButton(
-                        style: IconButton.styleFrom(
-                          backgroundColor: vm.cardColor,
-                        ),
-                        icon: const Icon(Icons.settings),
-                        onPressed: () => scaffoldKey.currentState!.openDrawer(),
-                      ),
-                      shadowColor: Colors.transparent,
-                      backgroundColor: Colors.transparent,
-                      title: buildAlertChip(vm),
-                      centerTitle: true,
-                    ),
                     drawer: const SettingsDrawer(),
-                    body: TabBarView(
-                      controller: tabController,
-                      children: buildDashboardTabs(
-                        weatherDataList: vm.weatherDataList,
-                      ),
+                    body: Stack(
+                      children: <Widget>[
+                        buildBodyContent(vm),
+                        buildButtonRow(vm),
+                      ],
                     ),
                   ),
                 ],
