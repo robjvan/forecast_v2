@@ -1,5 +1,5 @@
 export 'api_response.dart';
-export 'app_state.dart';
+export '../redux/app_state.dart';
 export 'data_models/api_alert_model.dart';
 export 'data_models/api_aqi_model.dart';
 export 'data_models/api_astro_model.dart';
