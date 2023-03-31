@@ -1,14 +1,16 @@
+import 'package:flutter/material.dart';
 import 'package:forecast_v3/models/models.dart';
 
+@immutable
 class UserSettings {
-  bool useDarkMode;
-  bool useDynamicBackgrounds;
-  AQIUnits aqiUnits;
-  WindSpeedUnits windSpeedUnits;
-  AirPressureUnits airPressureUnits;
-  TempUnits tempUnits;
+  final bool useDarkMode;
+  final bool useDynamicBackgrounds;
+  final AQIUnits aqiUnits;
+  final WindSpeedUnits windSpeedUnits;
+  final AirPressureUnits airPressureUnits;
+  final TempUnits tempUnits;
 
-  UserSettings({
+  const UserSettings({
     required this.useDarkMode,
     required this.useDynamicBackgrounds,
     required this.aqiUnits,
@@ -18,7 +20,7 @@ class UserSettings {
   });
 
   factory UserSettings.initial() {
-    return UserSettings(
+    return const UserSettings(
       useDarkMode: false,
       useDynamicBackgrounds: true,
       aqiUnits: AQIUnits.us,
@@ -28,7 +30,6 @@ class UserSettings {
     );
   }
 
-  @override
   UserSettings copyWith({
     final bool? useDarkMode,
     final bool? useDynamicBackgrounds,
