@@ -5,6 +5,8 @@ import 'package:forecast_v3/pages/dashboard/widgets/dashboard_widgets_view_model
 import 'package:forecast_v3/utilities/utilities.dart';
 import 'package:get/get.dart';
 
+@immutable
+
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({super.key});
 
