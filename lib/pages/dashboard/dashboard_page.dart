@@ -10,6 +10,7 @@ import 'package:forecast_v3/redux/actions.dart';
 import 'package:get/get.dart';
 import 'package:redux/redux.dart';
 
+@immutable
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
 
@@ -65,12 +66,16 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Column(
         children: const <Widget>[
           SizedBox(height: 72),
-          CurrentConditionsBox(),
+          CurrentConditionsCard(),
           SizedBox(height: 8),
-          EnvironmentalConditionsBox(),
+          EnvironmentalConditionsCard(),
           SizedBox(height: 8),
-          // TODO(Rob): Add more data widgets
-          HourlyForecast()
+          HourlyForecastCard(),
+          SizedBox(height: 8),
+          DailyForecastCard(),
+          SizedBox(height: 8),
+          AstroDataCard(),
+          SizedBox(height: 16),
         ],
       ),
     );
@@ -78,37 +83,12 @@ class _DashboardPageState extends State<DashboardPage> {
 
   /// Build the settings, location, and alert buttons
   Widget buildButtonRow(final DashboardPageViewModel vm) {
-    // /// Build button to open settings drawer
-    // Widget buildSettingsButton() {
-    //   return IconButton(
-    //     style: IconButton.styleFrom(
-    //       backgroundColor: vm.cardColor.withOpacity(0.5),
-    //     ),
-    //     icon: Icon(Icons.settings, color: vm.textColor),
-    //     onPressed: () => scaffoldKey.currentState!.openDrawer(),
-    //   );
-    // }
-
-    /// Build button to show available locations
-    Widget buildLocationsButton() {
-      return IconButton(
-        style: IconButton.styleFrom(
-          backgroundColor: vm.cardColor.withOpacity(0.5),
-        ),
-        icon: Icon(Icons.location_city, color: vm.textColor),
-        onPressed: () {
-          // TODO(Rob): Add dialog to change current location
-        },
-      );
-    }
-
     return Padding(
       padding: const EdgeInsets.fromLTRB(8.0, 24.0, 8.0, 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           SettingsButton(scaffoldKey),
-          const LocationsButton(),
         ],
       ),
     );
@@ -125,7 +105,11 @@ class _DashboardPageState extends State<DashboardPage> {
             ? const LoadingWidget()
             : Stack(
                 children: <Widget>[
-                  vm.useDynamicBackgrounds ? buildBackground(vm) : Container(),
+                  vm.useDynamicBackgrounds
+                      ? buildBackground(vm)
+                      : Container(
+                          color: vm.bgColor,
+                        ),
                   Scaffold(
                     key: scaffoldKey,
                     backgroundColor: Colors.transparent,
