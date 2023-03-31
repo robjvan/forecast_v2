@@ -1,5 +1,5 @@
-export 'api_response.dart';
 export '../redux/app_state.dart';
+export 'api_response.dart';
 export 'data_models/api_alert_model.dart';
 export 'data_models/api_aqi_model.dart';
 export 'data_models/api_astro_model.dart';
@@ -10,6 +10,8 @@ export 'data_models/api_forecast_model.dart';
 export 'data_models/api_forecastday_model.dart';
 export 'data_models/api_hour_model.dart';
 export 'data_models/api_location_model.dart';
+export 'data_models/daily_temp_model.dart';
+export 'data_models/hourly_data_model.dart';
 export 'data_models/location_model.dart';
 export 'data_models/weather_data_model.dart';
 export 'entity.dart';

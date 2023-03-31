@@ -1,5 +1,9 @@
+// ignore_for_file: unnecessary_lambdas
+
+import 'package:flutter/material.dart';
 import 'package:forecast_v3/models/models.dart';
 
+@immutable
 class WeatherData {
   
   final APILocation location;
@@ -22,7 +26,6 @@ class WeatherData {
         weatherAlerts: const <APIAlert>[],
       );
 
-  @override
   Map<String, dynamic> toJson() => <String, dynamic>{
         'location': location,
         'currentConditions': currentConditions,

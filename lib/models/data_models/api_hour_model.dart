@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:forecast_v3/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:forecast_v3/models/models.dart';
 
 @immutable
 class APIHour extends Entity<APIHour> {

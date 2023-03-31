@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:forecast_v3/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:forecast_v3/models/models.dart';
 
 @immutable
 class APIForecastDay extends Entity<APIForecastDay> {
@@ -78,7 +78,7 @@ class APIForecastDay extends Entity<APIForecastDay> {
         day = APIDay.fromJson(json['day']),
         astro = APIAstro.fromJson(json['astro']),
         hour = (json['hour'] as List<dynamic>)
-            .map((final dynamic i) => APIHour.fromJson(i))
+            .map(APIHour.fromJson)
             .toList();
 
   @override

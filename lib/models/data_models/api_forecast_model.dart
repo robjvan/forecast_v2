@@ -1,5 +1,5 @@
-import 'package:forecast_v3/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:forecast_v3/models/models.dart';
 
 @immutable
 class APIForecast extends Entity<APIForecast> {
@@ -30,7 +30,7 @@ class APIForecast extends Entity<APIForecast> {
   @override
   APIForecast.fromJson(final dynamic json)
       : forecastday = (json['forecastday'] as List<dynamic>)
-            .map((final dynamic i) => APIForecastDay.fromJson(i))
+            .map(APIForecastDay.fromJson)
             .toList();
 
   @override

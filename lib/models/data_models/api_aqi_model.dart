@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:forecast_v3/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:forecast_v3/models/models.dart';
 
 @immutable
 class APIAQI extends Entity<APIAQI> {
@@ -103,8 +103,8 @@ class APIAQI extends Entity<APIAQI> {
         so2 = Entity.parseJsonDouble(json['so2']),
         pm2_5 = Entity.parseJsonDouble(json['pm2_5']),
         pm10 = Entity.parseJsonDouble(json['pm10']),
-        us_epa_index = Entity.parseJsonInt(json['us_epa_index']),
-        gb_defra_index = Entity.parseJsonInt(json['gb_defra_index']);
+        us_epa_index = Entity.parseJsonInt(json['us-epa-index']),
+        gb_defra_index = Entity.parseJsonInt(json['gb-defra-index']);
 
   @override
   bool get isNotValid => !isValid;

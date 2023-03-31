@@ -1,5 +1,5 @@
-import 'package:forecast_v3/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:forecast_v3/models/models.dart';
 
 @immutable
 class APICondition extends Entity<APICondition> {
