@@ -12,10 +12,17 @@ class WeatherAPIProvider {
     // final String locationString,
     final String lat,
     final String long,
-  ) =>
-      http.get(
-        _weatherApi.resolve('$_apiUrl$lat,$long&days=5&aqi=yes&alerts=yes'),
-        // _weatherApi
-        //     .resolve('$_apiUrl$locationString&days=5&aqi=yes&alerts=yes'),
-      );
+    final String? lang,
+  ) {
+    /// Build our base request url
+    String requestUrl = '$_apiUrl$lat,$long&days=5&aqi=yes&alerts=yes';
+
+    /// If a language string has been passed in, add it to the request url
+    if (lang != null) {
+      requestUrl += '&lang=$lang';
+    }
+
+    /// Return the response
+    return http.get(_weatherApi.resolve(requestUrl));
+  }
 }
