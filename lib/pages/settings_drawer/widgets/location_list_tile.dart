@@ -18,7 +18,7 @@ class LocationListTile extends StatelessWidget {
 
     String getCityName() {
       return index == 0
-          ? '${'settings.current_location'.tr}, ${viewModel.weatherDataList[index]!.currentConditions.temp_c!.round()}c'
+          ? '${'current_location'.tr}, ${viewModel.weatherDataList[index]!.currentConditions.temp_c!.round()}c'
           : '${viewModel.weatherDataList[index]!.location.name!}, ${viewModel.weatherDataList[index]!.currentConditions.temp_c!.round()}c';
     }
 
@@ -26,24 +26,34 @@ class LocationListTile extends StatelessWidget {
       return ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: viewModel.useAnimatedBackgrounds
-            ? ColorFiltered(
-                colorFilter: ColorFilter.mode(
-                  viewModel.panelColor.withOpacity(
-                    index == viewModel.activeIndex ? 0.8 : 0.3,
-                  ),
-                  BlendMode.dstATop,
-                ),
-                child: WeatherBg(
-                  width: sw,
-                  height: 48,
-                  weatherType: viewModel.weatherType(
-                    viewModel.weatherDataList[index]!.currentConditions
-                            .condition!.code ??
-                        1000,
-                    index,
-                  ),
-                ),
-              )
+            ? index == viewModel.activeIndex
+                ? ColorFiltered(
+                    colorFilter: ColorFilter.mode(
+                      viewModel.panelColor.withOpacity(
+                        index == viewModel.activeIndex ? 0.8 : 0.3,
+                      ),
+                      BlendMode.dstATop,
+                    ),
+                    child: WeatherBg(
+                      width: sw,
+                      height: 48,
+                      weatherType: viewModel.weatherType(
+                        viewModel.weatherDataList[index]!.currentConditions
+                                .condition!.code ??
+                            1000,
+                        index,
+                      ),
+                    ),
+                  )
+                : Container(
+                    width: sw,
+                    height: 48,
+                    color: index == viewModel.activeIndex
+                        ? Theme.of(context).primaryColor
+                        : viewModel.useDarkMode
+                            ? AppColors.locationTileDarkGrey
+                            : AppColors.lightGrey,
+                  )
             : Container(
                 width: sw,
                 height: 48,
@@ -108,6 +118,7 @@ class LocationListTile extends StatelessWidget {
                       /// Dispatch action to remove location from lists
                       await viewModel
                           .dispatch(removeLocationFromListAction(index));
+
                     },
                     icon: Icon(
                       Icons.delete,
