@@ -2,6 +2,8 @@
 /// Holds colors and styles
 
 import 'package:flutter/material.dart';
+import 'package:forecast_v3/models/models.dart';
+import 'package:redux/redux.dart';
 
 class AppTheme {
   static ThemeData themeData = ThemeData(
@@ -113,6 +115,16 @@ class AppColors {
   static const Color lightGrey = Color(0xFFDDDDDD);
   static const Color locationTileDarkGrey = Color(0xFF303030);
   static const Color darkGrey = Color(0xFF202020);
+
+  /// Determine card background color
+  static Color getCardColor(final Store<AppState> store) =>
+      store.state.userSettings.useDarkMode ? bgColorDarkMode : bgColorLightMode;
+
+  /// Determine text color
+  static Color getTextColor(final Store<AppState> store) =>
+      store.state.userSettings.useDarkMode
+          ? textColorDarkMode
+          : textColorLightMode;
 }
 
 class AppFonts {
