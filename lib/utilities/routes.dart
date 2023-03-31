@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:forecast_v3/models/models.dart';
 import 'package:forecast_v3/pages/pages.dart';
-import 'package:forecast_v3/redux/actions.dart';
 import 'package:get/get.dart';
 
 class AppRoutes {
