@@ -1,6 +1,5 @@
 // These actions are used to interact with Location state
 
-import 'dart:async';
 import 'dart:developer';
 
 import 'package:forecast_v3/models/models.dart';
@@ -62,7 +61,7 @@ ThunkAction<AppState> addLocationToListAction(final Location newLocation) =>
 
       if (locationAlreadyInList) {
         /// location already in the list, show a snackbar and do nothing else
-        Get.snackbar('error'.tr, 'settings.location-already-exists'.tr);
+        Get.snackbar('error'.tr, 'location-already-exists'.tr);
       } else {
         /// location is NOT in the list
         newLocationsList.add(newLocation);
@@ -109,8 +108,8 @@ ThunkAction<AppState> saveUserLocationsAction(
           await LocalStorageProvider.writeLocationsData(userLocations);
       if (!saveSuccessful) {
         Get.snackbar(
-          'Error',
-          'There was an error saving settings, please try again later', // TODO(Rob): Add translation strings
+          'error'.tr,
+          'save-error'.tr,
         );
       }
     };

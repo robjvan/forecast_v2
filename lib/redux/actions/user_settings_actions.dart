@@ -94,8 +94,8 @@ ThunkAction<AppState> saveUserSettingsAction(final UserSettings userSettings) =>
           await LocalStorageProvider.writeSettingsData(userSettings);
       if (!saveSuccessful) {
         Get.snackbar(
-          'Error',
-          'There was an error saving settings, please try again later', // TODO(Rob): Add translation strings
+          'error'.tr,
+          'save-error'.tr,
         );
       }
     };
