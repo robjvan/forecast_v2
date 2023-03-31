@@ -17,6 +17,7 @@ class DashboardPageViewModel {
   final bool useDynamicBackgrounds;
   final Color cardColor;
   final Color textColor;
+  final Color bgColor;
 
   const DashboardPageViewModel({
     required this.name,
@@ -30,12 +31,11 @@ class DashboardPageViewModel {
     required this.useDynamicBackgrounds,
     required this.cardColor,
     required this.textColor,
+    required this.bgColor,
   });
 
   factory DashboardPageViewModel.create(final Store<AppState> store) {
-    int getCurrentLocationIndex() {
-      return store.state.currentLocationIndex;
-    }
+    int getCurrentLocationIndex() => store.state.currentLocationIndex;
 
     WeatherType? getWeatherType(final int code) {
       bool isDay = false;
@@ -53,28 +53,30 @@ class DashboardPageViewModel {
           : <APIAlert>[];
     }
 
+    /// Determine page background color
+    Color getBgColor() => store.state.userSettings.useDarkMode
+        ? const Color(0xFF000000)
+        : const Color(0xFFEEEEEE);
+
+    String getLocationName() => store.state.locations.isNotEmpty
+        ? store.state.locations[getCurrentLocationIndex()].name != null
+            ? store.state.locations[getCurrentLocationIndex()].name!
+            : ''
+        : '';
+
     return DashboardPageViewModel(
-      name: store.state.locations.isNotEmpty
-          ? store.state.locations[getCurrentLocationIndex()].name != null
-              ? store.state.locations[getCurrentLocationIndex()].name!
-              : ''
-          : '',
+      name: getLocationName(),
       loadingState: store.state.loadingState,
-      // weatherDataList: populateWeatherData(),
       weatherDataList: store.state.weatherData,
-      // locationList: populateLocationsList(),
       locationList: store.state.locations,
       activeLocationIndex: store.state.currentLocationIndex,
       dispatch: store.dispatch,
       weatherType: getWeatherType,
       activeAlerts: getActiveAlerts(),
       useDynamicBackgrounds: store.state.userSettings.useDynamicBackgrounds,
-      cardColor: store.state.userSettings.useDarkMode
-          ? AppColors.bgColorDarkMode
-          : AppColors.bgColorLightMode,
-      textColor: store.state.userSettings.useDarkMode
-          ? AppColors.textColorDarkMode
-          : AppColors.textColorLightMode,
+      cardColor: AppColors.getCardColor(store),
+      textColor: AppColors.getTextColor(store),
+      bgColor: getBgColor(),
     );
   }
 }
