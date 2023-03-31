@@ -27,7 +27,7 @@ class TempUnitsSelector extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
-              'settings.temp_units'.tr,
+              'temp_units'.tr,
               style: TextStyle(color: viewModel.textColor),
             ),
           ),

@@ -1,5 +1,5 @@
-import 'package:forecast_v3/models/enums/wind_speed_unit_model.dart';
 import 'package:flutter/material.dart';
+import 'package:forecast_v3/models/enums/wind_speed_unit_model.dart';
 import 'package:forecast_v3/pages/settings_drawer/settings_drawer_view_model.dart';
 import 'package:forecast_v3/pages/settings_drawer/widgets/widgets.dart';
 import 'package:get/get.dart';
@@ -32,7 +32,7 @@ class WindUnitsSelector extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
-              'settings.wind_speed_units'.tr,
+              'wind_speed_units'.tr,
               style: TextStyle(color: viewModel.textColor),
             ),
           ),

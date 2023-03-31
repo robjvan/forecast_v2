@@ -21,14 +21,14 @@ class AnimatedBgToggle extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
           child: Text(
-            'settings.enable_backgrounds'.tr,
+            'enable_backgrounds'.tr,
             style: TextStyle(color: viewModel.textColor),
           ),
         ),
         SettingsToggleSwitch(
           context: context,
           initialIndex: index,
-          labels: <String>['settings.off'.tr, 'settings.on'.tr],
+          labels: <String>['off'.tr, 'on'.tr],
           onToggleFn: (final _) =>
               <dynamic>{viewModel.toggleAnimatedBackgrounds()},
           totalSwitches: 2,

@@ -25,7 +25,7 @@ class LanguageSelector extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
-              'settings.select_language'.tr,
+              'select_language'.tr,
               style: TextStyle(color: viewModel.textColor),
             ),
           ),
@@ -35,9 +35,9 @@ class LanguageSelector extends StatelessWidget {
             totalSwitches: 3,
             initialIndex: index,
             labels: <String>[
-              'settings.en'.tr,
-              'settings.fr'.tr,
-              'settings.es'.tr,
+              'en'.tr,
+              'fr'.tr,
+              'es'.tr,
             ],
             onToggleFn: (final int? index) {
               // viewModel.refreshScreen(context);

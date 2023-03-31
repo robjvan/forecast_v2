@@ -20,14 +20,14 @@ class DarkModeToggle extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
           child: Text(
-            'settings.enable_dark_mode'.tr,
+            'enable_dark_mode'.tr,
             style: TextStyle(color: viewModel.textColor),
           ),
         ),
         SettingsToggleSwitch(
           context: context,
           initialIndex: index,
-          labels: <String>['settings.off'.tr, 'settings.on'.tr],
+          labels: <String>['off'.tr, 'on'.tr],
           onToggleFn: (final _) => <dynamic>{viewModel.toggleDarkMode()},
           totalSwitches: 2,
           viewModel: viewModel,

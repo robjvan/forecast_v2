@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 class SettingsDrawer extends StatelessWidget {
   const SettingsDrawer({final Key? key}) : super(key: key);
 
+  /// Build the settings section
   Widget _buildSettingsSection(final SettingsDrawerViewModel vm) {
     Widget _buildDivider() => const Divider(endIndent: 16.0, indent: 16.0);
 
@@ -22,7 +23,7 @@ class SettingsDrawer extends StatelessWidget {
         ),
         child: ExpansionTile(
           title: Text(
-            'settings.settings_header'.tr,
+            'settings_header'.tr,
             style:
                 AppStyles.drawerHeaderTextStyle.copyWith(color: vm.textColor),
           ),
@@ -62,6 +63,7 @@ class SettingsDrawer extends StatelessWidget {
     );
   }
 
+  /// Build the location selector section
   Widget _buildLocationSection(final SettingsDrawerViewModel vm) {
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -71,7 +73,7 @@ class SettingsDrawer extends StatelessWidget {
       child: ExpansionTile(
         childrenPadding: const EdgeInsets.only(bottom: 8.0),
         title: Text(
-          'settings.locations_header'.tr,
+          'locations_header'.tr,
           style: AppStyles.drawerHeaderTextStyle.copyWith(color: vm.textColor),
         ),
         iconColor: AppColors.grey,
@@ -88,6 +90,7 @@ class SettingsDrawer extends StatelessWidget {
     );
   }
 
+  /// Build the about app section
   Widget _buildAboutAppSection(final SettingsDrawerViewModel vm) {
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
@@ -98,7 +101,7 @@ class SettingsDrawer extends StatelessWidget {
         ),
         child: ExpansionTile(
           title: Text(
-            'settings.about_app'.tr,
+            'about_app'.tr,
             style:
                 AppStyles.drawerHeaderTextStyle.copyWith(color: vm.textColor),
           ),
@@ -119,7 +122,7 @@ class SettingsDrawer extends StatelessWidget {
                       ),
                       const SizedBox(width: 8.0),
                       Text(
-                        'Forecast',
+                        'app_title'.tr,
                         style: TextStyle(
                           color: vm.textColor,
                           fontSize: 32.0,
@@ -128,10 +131,19 @@ class SettingsDrawer extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 16.0),
-                  // TODO(Rob): Replace text in blurb
                   Text(
-                    'Ut voluptates laudantium dolorem. Est repudiandae itaque pariatur quaerat reprehenderit consequatur earum ut atque. Amet consequatur nulla. Earum accusantium asperiores similique.',
+                    'about-blurb'.tr,
                     style: TextStyle(color: vm.textColor),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    'location-data-blurb'.tr,
+                    style: TextStyle(
+                      color: vm.textColor,
+                      fontSize: 12,
+                      fontStyle: FontStyle.italic,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 8.0),
@@ -148,6 +160,7 @@ class SettingsDrawer extends StatelessWidget {
     );
   }
 
+  /// Build a close button
   Widget _buildCloseSettingsBtn(final SettingsDrawerViewModel vm) {
     return Padding(
       padding: const EdgeInsets.only(top: 32.0),
@@ -164,7 +177,6 @@ class SettingsDrawer extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    // final double sw = MediaQuery.of(context).size.width;
     final double sh = MediaQuery.of(context).size.height;
 
     return StoreConnector<AppState, SettingsDrawerViewModel>(

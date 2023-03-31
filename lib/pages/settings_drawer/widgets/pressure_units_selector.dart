@@ -1,7 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:forecast_v3/models/enums/air_pressure_unit_model.dart';
 import 'package:forecast_v3/pages/settings_drawer/settings_drawer_view_model.dart';
 import 'package:forecast_v3/pages/settings_drawer/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AirPressureUnitsSelector extends StatelessWidget {
@@ -32,7 +32,7 @@ class AirPressureUnitsSelector extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
-              'settings.air_pressure_units'.tr,
+              'air_pressure_units'.tr,
               style: TextStyle(color: viewModel.textColor),
             ),
           ),

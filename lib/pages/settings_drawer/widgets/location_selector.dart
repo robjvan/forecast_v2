@@ -77,7 +77,7 @@ class _LocationSelectorState extends State<LocationSelector> {
             ),
           ),
           isDense: true,
-          hintText: 'settings.find_location'.tr,
+          hintText: 'find_location'.tr,
           hintStyle: TextStyle(
             color: widget.viewModel.textColor.withOpacity(0.6),
           ),
