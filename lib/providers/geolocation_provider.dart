@@ -56,7 +56,7 @@ class GeolocationProvider {
     final String coordinates = '${position.latitude},${position.longitude}';
     final GoogleGeocodingResponse reversedSearchResults =
         await api.reverse(coordinates);
-    Location userLocation = Location.initial();
+    final Location userLocation = Location.initial();
 
     userLocation.latitude = position.latitude;
     userLocation.longitude = position.longitude;
