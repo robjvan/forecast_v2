@@ -14,7 +14,7 @@ class LocalStorageProvider {
       '${(await getApplicationDocumentsDirectory()).path}/$filename.json',
     );
 
-    /// TODO(Rob): Add backup file of old settings
+    // TODO(Rob): Add backup file of old settings
 
     /// Read data from storage and store it in [savedFile]
     final File savedFile = await file.writeAsString(
@@ -35,7 +35,7 @@ class LocalStorageProvider {
 
   /// Read saved user settings from local storage
   static Future<Map<String, dynamic>> readSettingsData() async {
-    Map<String, dynamic> result = {};
+    Map<String, dynamic> result = <String, dynamic>{};
     const String filename = 'user_settings';
     final File file = File(
       '${(await getApplicationDocumentsDirectory()).path}/$filename.json',
@@ -73,12 +73,12 @@ class LocalStorageProvider {
 
   /// Read list of saved user locations from local storage
   static Future<List<dynamic>> readLocationsData() async {
-    List<dynamic> result = [];
+    List<dynamic> result = <dynamic>[];
     const String filename = 'user_locations';
     final File file = File(
       '${(await getApplicationDocumentsDirectory()).path}/$filename.json',
     );
-    List<dynamic> readResult = [];
+    List<dynamic> readResult = <dynamic>[];
 
     if (file.existsSync()) {
       try {
