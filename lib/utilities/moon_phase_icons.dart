@@ -30,7 +30,7 @@ class MoonParser {
         child: Container(
           width: 30,
           height: 30,
-          color: Colors.white,
+          color: Colors.white70,
         ),
       ),
     );
@@ -61,7 +61,7 @@ class MoonParser {
                 child: Container(
                   width: 30,
                   height: 30,
-                  color: Colors.white,
+                  color: Colors.white70,
                 ),
               ),
             ),
@@ -96,7 +96,7 @@ class MoonParser {
                 child: Container(
                   width: 30,
                   height: 30,
-                  color: Colors.white,
+                  color: Colors.white70,
                 ),
               ),
             ),
@@ -129,7 +129,7 @@ class MoonParser {
               child: Container(
                 width: 30,
                 height: 30,
-                color: Colors.white,
+                color: Colors.white70,
               ),
             ),
           ],
@@ -161,7 +161,7 @@ class MoonParser {
               child: Container(
                 width: 30,
                 height: 30,
-                color: Colors.white,
+                color: Colors.white70,
               ),
             ),
           ],
@@ -185,7 +185,7 @@ class MoonParser {
               child: Container(
                 width: 30,
                 height: 30,
-                color: Colors.white,
+                color: Colors.white70,
               ),
             ),
             Positioned(
@@ -222,7 +222,7 @@ class MoonParser {
               child: Container(
                 width: 30,
                 height: 30,
-                color: Colors.white,
+                color: Colors.white70,
               ),
             ),
             Positioned(
