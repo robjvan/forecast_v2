@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:forecast_v3/models/models.dart';
 import 'package:forecast_v3/providers/weather_data_provider.dart';
 import 'package:forecast_v3/redux/actions.dart';
+import 'package:get/get.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
@@ -14,6 +15,7 @@ ThunkAction<AppState> fetchWeatherDataAction(
 ) =>
     (final Store<AppState> store) async {
       final List<WeatherData> weatherDataList = store.state.weatherData;
+      String? lang;
 
       /// Set the app state as loading
       if (setLoadingState) {
@@ -29,9 +31,20 @@ ThunkAction<AppState> fetchWeatherDataAction(
       };
 
       // Fetch weather data from API
+      switch (Get.locale!.languageCode) {
+        case 'fr':
+          lang = 'fr';
+          break;
+        case 'es':
+          lang = 'es';
+          break;
+        default:
+          break;
+      }
+
       final APIResponse<dynamic> apiResponse =
           await WeatherDataProvider.fetchWeatherData(
-        // locationString,
+        lang,
         lat: coords['lat'].toString(),
         long: coords['long'].toString(),
       );
@@ -59,8 +72,10 @@ ThunkAction<AppState> fetchWeatherDataAction(
             ),
             temp_c: apiResult.currentConditions.temp_c,
             temp_f: apiResult.currentConditions.temp_f,
+            temp_k: apiResult.currentConditions.temp_c! + 273.15,
             feelslike_c: apiResult.currentConditions.feelslike_c,
             feelslike_f: apiResult.currentConditions.feelslike_f,
+            feelslike_k: apiResult.currentConditions.feelslike_c! + 273.15,
             air_quality: APIAQI.createEmpty().copyWith(
                   co: apiResult.currentConditions.air_quality!.co,
                   no2: apiResult.currentConditions.air_quality!.no2,
@@ -79,11 +94,15 @@ ThunkAction<AppState> fetchWeatherDataAction(
             last_updated_epoch: apiResult.currentConditions.last_updated_epoch,
             pressure_in: apiResult.currentConditions.pressure_in,
             pressure_mb: apiResult.currentConditions.pressure_mb,
+            pressure_kpa: apiResult.currentConditions.pressure_mb! / 10,
+            pressure_atm: apiResult.currentConditions.pressure_mb! * 0.000987,
             uv: apiResult.currentConditions.uv,
             wind_degree: apiResult.currentConditions.wind_degree,
             wind_dir: apiResult.currentConditions.wind_dir,
             wind_kph: apiResult.currentConditions.wind_kph,
             wind_mph: apiResult.currentConditions.wind_mph,
+            wind_knots: apiResult.currentConditions.wind_kph! / 1.852,
+            wind_ms: apiResult.currentConditions.wind_kph! / 3.6,
           ),
           forecast: apiResult.forecast,
           weatherAlerts: <APIAlert>[...apiResult.weatherAlerts],
