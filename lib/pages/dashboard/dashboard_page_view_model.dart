@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
 import 'package:forecast_v3/models/models.dart';
+import 'package:forecast_v3/redux/actions.dart';
 import 'package:forecast_v3/utilities/utilities.dart';
 import 'package:redux/redux.dart';
 
@@ -18,6 +19,7 @@ class DashboardPageViewModel {
   final Color cardColor;
   final Color textColor;
   final Color bgColor;
+  final Function refreshWeatherFunction;
 
   const DashboardPageViewModel({
     required this.name,
@@ -32,6 +34,7 @@ class DashboardPageViewModel {
     required this.cardColor,
     required this.textColor,
     required this.bgColor,
+    required this.refreshWeatherFunction,
   });
 
   factory DashboardPageViewModel.create(final Store<AppState> store) {
@@ -64,6 +67,14 @@ class DashboardPageViewModel {
             : ''
         : '';
 
+    Future<void> refreshWeatherFunction() async {
+      await store.dispatch(
+        fetchWeatherDataAction(getCurrentLocationIndex(), true),
+      );
+
+      store.dispatch(const SetLoadingStateAction(LoadingState.done));
+    }
+
     return DashboardPageViewModel(
       name: getLocationName(),
       loadingState: store.state.loadingState,
@@ -77,6 +88,7 @@ class DashboardPageViewModel {
       cardColor: AppColors.getCardColor(store),
       textColor: AppColors.getTextColor(store),
       bgColor: getBgColor(),
+      refreshWeatherFunction: refreshWeatherFunction,
     );
   }
 }

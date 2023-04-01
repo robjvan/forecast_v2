@@ -8,6 +8,7 @@ import 'package:forecast_v3/pages/settings_drawer/settings_drawer.dart';
 import 'package:forecast_v3/providers/local_storage_provider.dart';
 import 'package:forecast_v3/redux/actions.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:redux/redux.dart';
 
 @immutable
@@ -21,7 +22,10 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+  final RefreshController refreshController =
+      RefreshController(initialRefresh: false);
 
+  /// This will fire when the page is initially built (app launch)
   Future<void> onInit(final Store<AppState> store) async {
     /// Set app loading state to loading
     if (store.state.loadingState != LoadingState.loading) {
@@ -85,13 +89,13 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget buildButtonRow(final DashboardPageViewModel vm) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8.0, 24.0, 8.0, 0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          SettingsButton(scaffoldKey),
-        ],
-      ),
+      child: SettingsButton(scaffoldKey),
     );
+  }
+
+  Future<void> onRefresh(final DashboardPageViewModel vm) async {
+    await vm.refreshWeatherFunction();
+    refreshController.refreshCompleted();
   }
 
   @override
@@ -107,18 +111,24 @@ class _DashboardPageState extends State<DashboardPage> {
                 children: <Widget>[
                   vm.useDynamicBackgrounds
                       ? buildBackground(vm)
-                      : Container(
-                          color: vm.bgColor,
-                        ),
+                      : Container(color: vm.bgColor),
                   Scaffold(
                     key: scaffoldKey,
                     backgroundColor: Colors.transparent,
                     drawer: const SettingsDrawer(),
-                    body: Stack(
-                      children: <Widget>[
-                        buildBodyContent(vm),
-                        buildButtonRow(vm),
-                      ],
+                    body: SmartRefresher(
+                      header: MaterialClassicHeader(
+                        backgroundColor: vm.cardColor.withOpacity(0.5),
+                      ),
+                      onRefresh: () => onRefresh(vm),
+                      enablePullDown: true,
+                      controller: refreshController,
+                      child: Stack(
+                        children: <Widget>[
+                          buildBodyContent(vm),
+                          buildButtonRow(vm),
+                        ],
+                      ),
                     ),
                   ),
                 ],
