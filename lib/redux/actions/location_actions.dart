@@ -2,10 +2,10 @@
 
 import 'dart:developer';
 
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/providers/geolocation_provider.dart';
-import 'package:forecast_v3/providers/local_storage_provider.dart';
-import 'package:forecast_v3/redux/actions.dart';
+import 'package:forecast/models/models.dart';
+import 'package:forecast/providers/geolocation_provider.dart';
+import 'package:forecast/providers/local_storage_provider.dart';
+import 'package:forecast/redux/actions.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

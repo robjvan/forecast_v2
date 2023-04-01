@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:forecast_v3/models/enums/aqi_unit_model.dart';
-import 'package:forecast_v3/pages/settings_drawer/settings_drawer_view_model.dart';
-import 'package:forecast_v3/pages/settings_drawer/widgets/widgets.dart';
+import 'package:forecast/models/enums/aqi_unit_model.dart';
+import 'package:forecast/pages/settings_drawer/settings_drawer_view_model.dart';
+import 'package:forecast/pages/settings_drawer/widgets/widgets.dart';
 import 'package:get/get.dart';
 
 class AirQualityUnitsSelector extends StatelessWidget {

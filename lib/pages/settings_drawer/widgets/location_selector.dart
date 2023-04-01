@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/pages/settings_drawer/settings_drawer_view_model.dart';
-import 'package:forecast_v3/redux/actions.dart';
-import 'package:forecast_v3/utilities/utilities.dart';
+import 'package:forecast/models/models.dart';
+import 'package:forecast/pages/settings_drawer/settings_drawer_view_model.dart';
+import 'package:forecast/redux/actions.dart';
+import 'package:forecast/utilities/utilities.dart';
 import 'package:get/get.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';

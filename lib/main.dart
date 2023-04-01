@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/redux/reducers.dart';
-import 'package:forecast_v3/utilities/utilities.dart';
+import 'package:forecast/models/models.dart';
+import 'package:forecast/redux/reducers.dart';
+import 'package:forecast/utilities/utilities.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:redux/redux.dart';
@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
         title: 'app_title'.tr,
         theme: AppTheme.themeData,
         initialRoute: AppRoutes.initialRoute,
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

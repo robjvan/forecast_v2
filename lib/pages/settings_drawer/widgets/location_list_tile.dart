@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/pages/settings_drawer/settings_drawer_view_model.dart';
-import 'package:forecast_v3/redux/actions.dart';
-import 'package:forecast_v3/utilities/utilities.dart';
+import 'package:forecast/models/models.dart';
+import 'package:forecast/pages/settings_drawer/settings_drawer_view_model.dart';
+import 'package:forecast/redux/actions.dart';
+import 'package:forecast/utilities/utilities.dart';
 import 'package:get/get.dart';
 
 class LocationListTile extends StatelessWidget {
@@ -67,7 +67,7 @@ class LocationListTile extends StatelessWidget {
                 onPressed: Get.back,
                 child: Text(
                   'cancel'.tr,
-                  style: TextStyle(color: const Color(0xFFD0BCFF)),
+                  style: const TextStyle(color: AppColors.lavender),
                 ),
               ),
               ElevatedButton(
@@ -210,28 +210,26 @@ class LocationListTile extends StatelessWidget {
       converter: SettingsDrawerViewModel.create,
       builder: (final _, final SettingsDrawerViewModel vm) {
         return Container(
-      height: 48,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 2,
-      ),
-      child: InkWell(
-        onTap: () {
+          height: 48,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 2,
+          ),
+          child: InkWell(
+            onTap: () {
               vm.dispatch(UpdateCurrentLocationIndexAction(index));
               vm.saveUserSettings();
-        },
-        child: Stack(
-          alignment: AlignmentDirectional.center,
-          children: <Widget>[
+            },
+            child: Stack(
+              alignment: AlignmentDirectional.center,
+              children: <Widget>[
                 buildTileBackground(vm),
                 buildTileContent(vm),
-          ],
-        ),
-      ),
-    );
+              ],
+            ),
+          ),
+        );
       },
     );
-
-    
   }
 }

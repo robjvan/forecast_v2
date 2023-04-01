@@ -1,4 +1,4 @@
-import 'package:forecast_v3/models/models.dart';
+import 'package:forecast/models/models.dart';
 
 class SetLoadingStateAction {
   final LoadingState loadingState;

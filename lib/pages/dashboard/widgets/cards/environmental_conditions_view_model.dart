@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/utilities/utilities.dart';
+import 'package:forecast/models/models.dart';
+import 'package:forecast/utilities/utilities.dart';
 import 'package:get/get.dart';
 import 'package:redux/redux.dart';
 

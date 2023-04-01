@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:forecast_v3/pages/dashboard/widgets/cards/environmental_conditions_view_model.dart';
-import 'package:forecast_v3/redux/app_state.dart';
-import 'package:forecast_v3/utilities/utilities.dart';
+import 'package:forecast/pages/dashboard/widgets/cards/environmental_conditions_view_model.dart';
+import 'package:forecast/redux/app_state.dart';
+import 'package:forecast/utilities/utilities.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 

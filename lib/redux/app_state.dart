@@ -1,6 +1,6 @@
 // ignore_for_file: unnecessary_lambdas
 
-import 'package:forecast_v3/models/models.dart';
+import 'package:forecast/models/models.dart';
 
 class AppState {
   final List<Location> locations;

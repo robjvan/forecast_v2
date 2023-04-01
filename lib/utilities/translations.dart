@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:forecast_v3/utilities/localization/en.dart';
-import 'package:forecast_v3/utilities/localization/es.dart';
-import 'package:forecast_v3/utilities/localization/fr.dart';
+import 'package:forecast/utilities/localization/en.dart';
+import 'package:forecast/utilities/localization/es.dart';
+import 'package:forecast/utilities/localization/fr.dart';
 import 'package:get/get.dart';
 
 @immutable

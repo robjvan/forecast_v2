@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:forecast_v3/models/models.dart';
+import 'package:forecast/models/models.dart';
 
 @immutable
 class UserSettings {
@@ -21,7 +21,7 @@ class UserSettings {
 
   factory UserSettings.initial() {
     return const UserSettings(
-      useDarkMode: false,
+      useDarkMode: true,
       useDynamicBackgrounds: true,
       aqiUnits: AQIUnits.us,
       airPressureUnits: AirPressureUnits.kpa,

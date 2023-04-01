@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/pages/settings_drawer/settings_drawer_view_model.dart';
-import 'package:forecast_v3/pages/settings_drawer/widgets/widgets.dart';
-import 'package:forecast_v3/utilities/utilities.dart';
+import 'package:forecast/models/models.dart';
+import 'package:forecast/pages/settings_drawer/settings_drawer_view_model.dart';
+import 'package:forecast/pages/settings_drawer/widgets/widgets.dart';
+import 'package:forecast/utilities/utilities.dart';
 import 'package:get/get.dart';
 
 @immutable
@@ -148,7 +148,7 @@ class SettingsDrawer extends StatelessWidget {
                   ),
                   const SizedBox(height: 8.0),
                   Text(
-                    '2023 Rob Vandelinder',
+                    '2021 Rob Vandelinder',
                     style: TextStyle(color: vm.textColor),
                   ),
                 ],

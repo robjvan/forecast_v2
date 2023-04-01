@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/redux/actions.dart';
-import 'package:forecast_v3/utilities/utilities.dart';
+import 'package:forecast/models/models.dart';
+import 'package:forecast/redux/actions.dart';
+import 'package:forecast/utilities/utilities.dart';
 import 'package:redux/redux.dart';
 
 @immutable

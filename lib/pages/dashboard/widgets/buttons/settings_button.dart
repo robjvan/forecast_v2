@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/pages/dashboard/widgets/dashboard_widgets_view_model.dart';
+import 'package:forecast/models/models.dart';
+import 'package:forecast/pages/dashboard/widgets/dashboard_widgets_view_model.dart';
 
 class SettingsButton extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;

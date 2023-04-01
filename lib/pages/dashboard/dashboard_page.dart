@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/pages/dashboard/dashboard_page_view_model.dart';
-import 'package:forecast_v3/pages/dashboard/widgets/widgets.dart';
-import 'package:forecast_v3/pages/settings_drawer/settings_drawer.dart';
-import 'package:forecast_v3/providers/local_storage_provider.dart';
-import 'package:forecast_v3/redux/actions.dart';
+import 'package:forecast/models/models.dart';
+import 'package:forecast/pages/dashboard/dashboard_page_view_model.dart';
+import 'package:forecast/pages/dashboard/widgets/widgets.dart';
+import 'package:forecast/pages/settings_drawer/settings_drawer.dart';
+import 'package:forecast/providers/local_storage_provider.dart';
+import 'package:forecast/redux/actions.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:redux/redux.dart';
@@ -86,9 +86,9 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   /// Build the settings, location, and alert buttons
-  Widget buildButtonRow(final DashboardPageViewModel vm) {
+  Widget buildSettingsButton(final DashboardPageViewModel vm) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8.0, 24.0, 8.0, 0),
+      padding: EdgeInsets.fromLTRB(8.0, Get.height * 0.035, 8.0, 0),
       child: SettingsButton(scaffoldKey),
     );
   }
@@ -126,7 +126,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       child: Stack(
                         children: <Widget>[
                           buildBodyContent(vm),
-                          buildButtonRow(vm),
+                          buildSettingsButton(vm),
                         ],
                       ),
                     ),

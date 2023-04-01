@@ -1,4 +1,4 @@
-import 'package:forecast_v3/pages/pages.dart';
+import 'package:forecast/pages/pages.dart';
 import 'package:get/get.dart';
 
 class AppRoutes {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/pages/dashboard/widgets/dialogs/weather_alert_dialog_view_model.dart';
-import 'package:forecast_v3/utilities/theme.dart';
+import 'package:forecast/models/models.dart';
+import 'package:forecast/pages/dashboard/widgets/dialogs/weather_alert_dialog_view_model.dart';
+import 'package:forecast/utilities/theme.dart';
 import 'package:get/get.dart';
 
 @immutable

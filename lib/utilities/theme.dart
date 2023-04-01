@@ -2,7 +2,7 @@
 /// Holds colors and styles
 
 import 'package:flutter/material.dart';
-import 'package:forecast_v3/models/models.dart';
+import 'package:forecast/models/models.dart';
 import 'package:redux/redux.dart';
 
 class AppTheme {
@@ -66,10 +66,10 @@ class AppStyles {
     fontFamily: 'Montserrat',
   );
 
-  static TextStyle loadingMessageTextStyle = TextStyle(
+  static TextStyle loadingMessageTextStyle = const TextStyle(
     fontSize: 18.0,
     overflow: TextOverflow.ellipsis,
-    color: Colors.blue[400],
+    color: AppColors.lavender,
     fontFamily: 'Monserrat',
   );
 }
@@ -89,6 +89,7 @@ class AppColors {
   static const Color lightGrey = Color(0xFFDDDDDD);
   static const Color locationTileDarkGrey = Color(0xFF303030);
   static const Color darkGrey = Color(0xFF202020);
+  static const Color lavender = Color(0xFFD0BCFF);
 
   /// Determine card background color
   static Color getCardColor(final Store<AppState> store) =>

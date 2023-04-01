@@ -1,5 +1,5 @@
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/redux/actions.dart';
+import 'package:forecast/models/models.dart';
+import 'package:forecast/redux/actions.dart';
 
 AppState appReducer(final AppState state, final dynamic action) {
   return AppState(

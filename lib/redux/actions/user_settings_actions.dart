@@ -1,7 +1,7 @@
 // These actions are used to interact with User state
 
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/providers/local_storage_provider.dart';
+import 'package:forecast/models/models.dart';
+import 'package:forecast/providers/local_storage_provider.dart';
 import 'package:get/get.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';

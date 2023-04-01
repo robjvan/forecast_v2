@@ -2,9 +2,9 @@
 
 import 'dart:developer';
 
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/providers/weather_data_provider.dart';
-import 'package:forecast_v3/redux/actions.dart';
+import 'package:forecast/models/models.dart';
+import 'package:forecast/providers/weather_data_provider.dart';
+import 'package:forecast/redux/actions.dart';
 import 'package:get/get.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';

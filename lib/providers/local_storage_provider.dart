@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:forecast_v3/models/models.dart';
+import 'package:forecast/models/models.dart';
 import 'package:path_provider/path_provider.dart';
 
 class LocalStorageProvider {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:forecast_v3/utilities/utilities.dart';
+import 'package:forecast/utilities/utilities.dart';
 import 'package:http/http.dart' as http;
 
 @immutable

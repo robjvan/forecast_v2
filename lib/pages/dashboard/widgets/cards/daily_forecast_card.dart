@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/pages/dashboard/widgets/cards/daily_forecast_view_model.dart';
-import 'package:forecast_v3/pages/dashboard/widgets/hourly_condition_icon.dart';
+import 'package:forecast/models/models.dart';
+import 'package:forecast/pages/dashboard/widgets/cards/daily_forecast_view_model.dart';
+import 'package:forecast/pages/dashboard/widgets/hourly_condition_icon.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 @immutable

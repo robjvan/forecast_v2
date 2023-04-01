@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/pages/dashboard/widgets/dashboard_widgets_view_model.dart';
-import 'package:forecast_v3/utilities/utilities.dart';
+import 'package:forecast/models/models.dart';
+import 'package:forecast/pages/dashboard/widgets/dashboard_widgets_view_model.dart';
+import 'package:forecast/utilities/utilities.dart';
 import 'package:get/get.dart';
 
 @immutable
@@ -26,9 +26,9 @@ class LoadingWidget extends StatelessWidget {
                   style: AppStyles.loadingMessageTextStyle,
                 ),
                 const SizedBox(height: 32.0),
-                CircularProgressIndicator(
+                const CircularProgressIndicator(
                   strokeWidth: 5,
-                  color: Colors.blue[400],
+                  color: AppColors.lavender,
                 ),
               ],
             ),

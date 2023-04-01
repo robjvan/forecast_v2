@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/providers/api/weather_api_provider.dart';
+import 'package:forecast/models/models.dart';
+import 'package:forecast/providers/api/weather_api_provider.dart';
 import 'package:http/http.dart';
 
 class WeatherDataProvider {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:forecast_v3/pages/settings_drawer/settings_drawer_view_model.dart';
-import 'package:forecast_v3/utilities/utilities.dart';
+import 'package:forecast/pages/settings_drawer/settings_drawer_view_model.dart';
+import 'package:forecast/utilities/utilities.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class SettingsToggleSwitch extends StatelessWidget {
@@ -46,14 +46,12 @@ class SettingsToggleSwitch extends StatelessWidget {
       totalSwitches: totalSwitches,
       labels: labels,
       onToggle: (final int? i) => onToggleFn(i!),
-      // fontSize: 12,
-      // minHeight: 32,
       animate: true,
       curve: Curves.easeInOut,
       animationDuration: 250,
       inactiveFgColor: vm.textColor,
       activeFgColor: vm.textColor,
-      activeBgColor: [
+      activeBgColor: <Color>[
         vm.useDarkMode
             ? const Color(0x88D0BCFF)
             : const Color.fromARGB(135, 188, 189, 255)

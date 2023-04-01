@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:forecast_v3/models/data_models/location_model.dart';
-import 'package:forecast_v3/utilities/utilities.dart';
+import 'package:forecast/models/data_models/location_model.dart';
+import 'package:forecast/utilities/utilities.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 

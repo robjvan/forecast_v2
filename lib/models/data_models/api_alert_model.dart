@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:forecast_v3/models/models.dart';
+import 'package:forecast/models/models.dart';
 
 @immutable
 class APIAlert extends Entity<APIAlert> {
