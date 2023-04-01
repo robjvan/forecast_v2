@@ -1,3 +1,95 @@
-final Map<String, String> englishStrings = {
+final Map<String, String> englishStrings = <String, String>{
   'app_title': 'Forecast',
+  'loading': 'Loading data, please wait...',
+  'error': 'Error',
+  'ok': 'OK',
+  'cancel': 'Cancel',
+  'save-error': "Couldn't save your settings, try again later",
+
+  /// Conditions card
+  'feelslike': 'Feels like @temp',
+
+  /// Air quality strings
+  'aqi-good': 'Good',
+  'aqi-moderate': 'Moderate',
+  'aqi-unhealthylite': 'Unhealthy for sensitive',
+  'aqi-unhealthy': 'Unhealthy',
+  'aqi-veryunhealthy': 'Very Unhealthy',
+  'aqi-hazardous': 'Hazardous',
+  'aqi-low': 'Low',
+  'aqi-high': 'High',
+  'aqi-veryhigh': 'Very High',
+
+  /// Settings strings
+  'settings_header': 'Settings',
+  'select_language': 'Select Language',
+  'en': 'English',
+  'fr': 'Français',
+  'es': 'Español',
+  'enable_backgrounds': 'Animated Backgrounds',
+  'enable_dark_mode': 'Dark Mode',
+  'temp_units': 'Temp Units',
+  'wind_speed_units': 'Wind Speed Units',
+  'air_pressure_units': 'Air Pressure Units',
+  'aqi_units': 'Air Quality Units',
+  'locations_header': 'Locations',
+  'find_location': 'Search ...',
+  'current_location': 'Current location',
+  'about_app': 'About',
+  'off': 'Off',
+  'on': 'On',
+  'us_aqi': 'US EPA Index',
+  'gb_aqi': 'GB Defra Index',
+  'about-blurb':
+      'Built with Flutter leveraging Redux, Get, Google APIs, weather data APIs, and more. ',
+  'location-data-blurb':
+      'Your location data is never shared and only used to grab local weather data.',
+
+  /// Astro data card
+  'sunrise': 'Sunrise',
+  'sunset': 'Sunset',
+  'moonphase': 'Moon Phase',
+  'New Moon': 'New Moon',
+  'Waxing Crescent': 'Waxing Crescent',
+  'First Quarter': 'First Quarter',
+  'Waxing Gibbous': 'Waxing Gibbous',
+  'Full Moon': 'Full Moon',
+  'Waning Gibbous': 'Waning Gibbous',
+  'Last Quarter': 'Last Quarter',
+  'Waning Crescent': 'Waning Crescent',
+
+  /// Environment card headers
+  'humidity': 'Humidity',
+  'uvindex': 'UV Index',
+  'airquality': 'Air Quality',
+  'wind': 'Wind',
+  'airpressure': 'Air Pressure',
+
+  /// Wind Compass directions
+  'n': 'N',
+  'nne': 'NNE',
+  'ne': 'NE',
+  'ene': 'ENE',
+  'e': 'E',
+  'ese': 'ESE',
+  'se': 'SE',
+  'sse': 'SSE',
+  's': 'S',
+  'ssw': 'SSW',
+  'sw': 'SW',
+  'wsw': 'WSW',
+  'w': 'W',
+  'wnw': 'WNW',
+  'nw': 'NW',
+  'nnw': 'NNW',
+
+  /// Days of the week strings
+  'today': 'Today',
+  'mon': 'Mon',
+  'tue': 'Tue',
+  'wed': 'Wed',
+  'thu': 'Thu',
+  'fri': 'Fri',
+  'sat': 'Sat',
+  'sun': 'Sun',
 };

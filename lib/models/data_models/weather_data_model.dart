@@ -1,19 +1,44 @@
-class WeatherData {
-  final double tempC;
-  final double tempF;
-  final double tempK;
+// ignore_for_file: unnecessary_lambdas
 
-  WeatherData({
-    required this.tempC,
-    required this.tempF,
-    required this.tempK,
+import 'package:flutter/material.dart';
+import 'package:forecast/models/models.dart';
+
+@immutable
+class WeatherData {
+  
+  final APILocation location;
+  final APICurrentConditions currentConditions;
+  final APIForecast forecast;
+  final List<APIAlert> weatherAlerts;
+
+  const WeatherData({
+    required this.location,
+    required this.currentConditions,
+    required this.forecast,
+    required this.weatherAlerts,
   });
 
-  factory WeatherData.initial() {
-    return WeatherData(
-      tempC: double.nan,
-      tempF: double.nan,
-      tempK: double.nan,
-    );
-  }
+  @override
+  factory WeatherData.initial() => WeatherData(
+        location: APILocation.createEmpty(),
+        currentConditions: APICurrentConditions.createEmpty(),
+        forecast: APIForecast.createEmpty(),
+        weatherAlerts: const <APIAlert>[],
+      );
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'location': location,
+        'currentConditions': currentConditions,
+        'forecast': forecast,
+        'weatherAlerts': weatherAlerts
+      };
+
+  @override
+  WeatherData.fromJson(final Map<String, dynamic> json)
+      : location = APILocation.fromJson(json['location']),
+        currentConditions = APICurrentConditions.fromJson(json['current']),
+        forecast = APIForecast.fromJson(json['forecast']),
+        weatherAlerts = (json['alerts']['alert'] as List<dynamic>)
+            .map((final dynamic i) => APIAlert.fromJson(i))
+            .toList();
 }

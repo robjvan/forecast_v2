@@ -1,22 +1,22 @@
 class Location {
-  final double latitude;
-  final double longitude;
-  final String name;
-  final String region;
+  double? latitude;
+  double? longitude;
+  String? name;
+  String? region;
 
   Location({
-    required this.latitude,
-    required this.longitude,
-    required this.name,
-    required this.region,
+    this.latitude,
+    this.longitude,
+    this.name,
+    this.region,
   });
 
   factory Location.initial() {
     return Location(
-      latitude: double.nan,
-      longitude: double.nan,
-      name: '',
-      region: '',
+      latitude: null,
+      longitude: null,
+      name: null,
+      region: null,
     );
   }
 
@@ -26,4 +26,17 @@ class Location {
         'name': name,
         'region': region,
       };
+
+  factory Location.fromJson(final Map<String, dynamic> json) {
+    return Location(
+      latitude: json['latitude'],
+      longitude: json['longitude'],
+      name: json['name'],
+      region: json['region'],
+    );
+  }
+
+  @override
+  String toString() =>
+      'latitude: $latitude, longitude: $longitude, name: $name, region: $region';
 }

@@ -1,7 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ca.robjvan.forecast_v3">
+    package="ca.robjvan.fancy_weather">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="forecast_v3"
+        android:label="Forecast"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
