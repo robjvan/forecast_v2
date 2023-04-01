@@ -76,10 +76,11 @@ class CurrentConditionsCard extends StatelessWidget {
   /// Build current weather conditions widget
   Widget buildConditionsString(final CurrentConditionsViewModel vm) {
     return Text(
-      vm.currentConditions.tr,
+      vm.currentConditions,
       style: AppStyles.currentConditionsStyle.copyWith(
         color: vm.textColor,
       ),
+      textAlign: TextAlign.center,
     );
   }
 
