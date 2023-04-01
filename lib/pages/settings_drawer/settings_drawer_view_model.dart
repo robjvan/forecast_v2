@@ -7,64 +7,52 @@ import 'package:redux/redux.dart';
 
 @immutable
 class SettingsDrawerViewModel {
-  final Color panelColor;
+  final Color cardColor;
   final Color textColor;
   final Color drawerColor;
-  final Color pointerColor;
-  final TextStyle cardHeaderTextStyle;
-  final TextStyle cardbodyTextStyle;
   final bool useDarkMode;
   final bool useAnimatedBackgrounds;
   final Function toggleAnimatedBackgrounds;
   final Function toggleDarkMode;
-  final IconData toggleDarkModeIcon;
-  final IconData toggleAnimBgIcon;
   final Function(int) updateTempUnits;
   final Function(int) updateWindSpeedUnits;
   final Function(int) updateAirPressureUnits;
   final Function(int) updateAQIUnits;
-  // final List<SimpleLocation> locationList;
   final List<WeatherData?> weatherDataList;
   final String tempUnits;
   final AirPressureUnits airPressureUnits;
   final WindSpeedUnits windSpeedUnits;
   final AQIUnits aqiUnits;
-  final Function refreshScreen;
   final Function(int, int) weatherType;
   final int activeIndex;
   final Function(dynamic) dispatch;
   final Function updateCurrentIndex;
   final Function() saveUserSettings;
+  final Function updateWeatherData;
 
   const SettingsDrawerViewModel({
-    required this.panelColor,
+    required this.cardColor,
     required this.weatherType,
     required this.textColor,
     required this.drawerColor,
-    required this.pointerColor,
-    required this.cardHeaderTextStyle,
-    required this.cardbodyTextStyle,
     required this.useDarkMode,
     required this.useAnimatedBackgrounds,
     required this.toggleAnimatedBackgrounds,
     required this.toggleDarkMode,
-    required this.toggleDarkModeIcon,
-    required this.toggleAnimBgIcon,
     required this.updateTempUnits,
     required this.updateWindSpeedUnits,
     required this.updateAirPressureUnits,
     required this.updateAQIUnits,
-    // required this.locationList,
     required this.weatherDataList,
     required this.tempUnits,
     required this.airPressureUnits,
     required this.windSpeedUnits,
     required this.aqiUnits,
-    required this.refreshScreen,
     required this.activeIndex,
     required this.dispatch,
     required this.updateCurrentIndex,
     required this.saveUserSettings,
+    required this.updateWeatherData,
   });
 
   factory SettingsDrawerViewModel.create(final Store<AppState> store) {
@@ -145,23 +133,6 @@ class SettingsDrawerViewModel {
       }
     }
 
-    // ignore: missing_return
-    Color getPointerColor() {
-      final bool useBG = store.state.userSettings.useDynamicBackgrounds;
-      final bool useDM = store.state.userSettings.useDarkMode;
-
-      if (useDM && useBG) {
-        return Colors.white;
-      } else if (useDM && !useBG) {
-        return Colors.white;
-      } else if (!useDM && useBG) {
-        return Colors.white;
-      } else if (!useDM && !useBG) {
-        return Colors.black;
-      }
-      return Colors.black;
-    }
-
     String getTempUnitsString() {
       switch (store.state.userSettings.tempUnits) {
         case TempUnits.c:
@@ -171,23 +142,6 @@ class SettingsDrawerViewModel {
         case TempUnits.k:
           return 'K';
       }
-    }
-
-    void refreshScreen(final BuildContext context) {
-      Navigator.of(context).pop();
-      store.dispatch(
-        fetchWeatherDataAction(
-          getActiveLocationIndex(), true,
-          // latitude: store.state.weatherData.isNotEmpty
-          //     ? store
-          //         .state.weatherData[getActiveLocationIndex()].location.lat
-          //     : store.state.weatherData.first.location.lat,
-          // longitude: store.state.weatherData.isNotEmpty
-          //     ? store.state.weatherData[getActiveLocationIndex()].location
-          //         .long
-          //     : store.state.weatherData.first.location.long,
-        ),
-      );
     }
 
     WeatherType weatherType(final int code, final int index) {
@@ -221,6 +175,13 @@ class SettingsDrawerViewModel {
       );
     }
 
+    Future<void> updateWeatherData() async {
+      for (int i = 0; i < store.state.weatherData.length; i++) {
+        await store.dispatch(fetchWeatherDataAction(i, false));
+      }
+      store.dispatch(const SetLoadingStateAction(LoadingState.done));
+    }
+
     return SettingsDrawerViewModel(
       activeIndex: store.state.currentLocationIndex,
       aqiUnits: store.state.userSettings.aqiUnits,
@@ -229,45 +190,21 @@ class SettingsDrawerViewModel {
       updateWindSpeedUnits: updateWindSpeedUnits,
       updateAirPressureUnits: updateAirPressureUnits,
       updateAQIUnits: updateAQIUnits,
-      panelColor: store.state.userSettings.useDarkMode
-          ? AppColors.darkGrey
-          : AppColors.bgColorLightMode,
-      drawerColor: store.state.userSettings.useDarkMode
-          ? AppColors.black.withOpacity(0.85)
-          : AppColors.bgColorLightMode.withOpacity(0.85),
-      textColor: store.state.userSettings.useDarkMode
-          ? AppColors.white
-          : AppColors.black,
-      toggleDarkModeIcon: store.state.userSettings.useDarkMode
-          ? Icons.toggle_on_outlined
-          : Icons.toggle_off_outlined,
-      toggleAnimBgIcon: store.state.userSettings.useDynamicBackgrounds
-          ? Icons.toggle_on_outlined
-          : Icons.toggle_off_outlined,
+      cardColor: AppColors.getCardColor(store),
+      drawerColor: AppColors.getCardColor(store).withOpacity(0.85),
+      textColor: AppColors.getTextColor(store),
       useAnimatedBackgrounds: store.state.userSettings.useDynamicBackgrounds,
       useDarkMode: store.state.userSettings.useDarkMode,
       toggleAnimatedBackgrounds: toggleAnimatedBackgrounds,
       toggleDarkMode: toggleDarkMode,
-      // locationList: store.state.locationList,
       weatherDataList: store.state.weatherData,
       airPressureUnits: store.state.userSettings.airPressureUnits,
       tempUnits: getTempUnitsString(),
-      pointerColor: getPointerColor(),
-      cardHeaderTextStyle: AppStyles.cardHeaderStyle.copyWith(
-        color: store.state.userSettings.useDarkMode
-            ? AppColors.textColorDarkMode
-            : AppColors.textColorLightMode,
-      ),
-      cardbodyTextStyle: AppStyles.cardBodyStyle.copyWith(
-        color: store.state.userSettings.useDarkMode
-            ? AppColors.textColorDarkMode
-            : AppColors.textColorLightMode,
-      ),
-      refreshScreen: refreshScreen,
       weatherType: weatherType,
       dispatch: store.dispatch,
       updateCurrentIndex: updateCurrentIndex,
       saveUserSettings: saveUserSettings,
+      updateWeatherData: updateWeatherData,
     );
   }
 }
