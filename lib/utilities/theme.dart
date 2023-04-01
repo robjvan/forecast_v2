@@ -7,35 +7,9 @@ import 'package:redux/redux.dart';
 
 class AppTheme {
   static ThemeData themeData = ThemeData(
-    primaryColor: Colors.green,
+    primaryColor: const Color(0xFFD0BCFF),
     useMaterial3: true,
     brightness: Brightness.dark,
-    // textTheme: const TextTheme(
-    //   headlineLarge: TextStyle(
-    //     fontSize: 64.0,
-    //     fontWeight: FontWeight.bold,
-    //   ),
-    //   titleMedium: TextStyle(
-    //     fontSize: 24.0,
-    //     fontStyle: FontStyle.italic,
-    //   ),
-    //   bodySmall: TextStyle(fontSize: 18.0),
-    // ),
-  );
-
-  static BoxDecoration blueGradient = BoxDecoration(
-    gradient: LinearGradient(
-      begin: Alignment.bottomLeft,
-      end: Alignment.topRight,
-      stops: const <double>[0.1, 0.3, 0.5, 0.7, 0.9],
-      colors: <Color>[
-        Colors.blue[300]!,
-        Colors.blue[400]!,
-        Colors.blue[500]!,
-        Colors.blue[600]!,
-        Colors.blue[700]!,
-      ],
-    ),
   );
 }
 
@@ -43,13 +17,11 @@ class AppStyles {
   static const TextStyle locationNameTextStyle = TextStyle(
     fontSize: 24.0,
     fontFamily: 'Montserrat',
-    // fontWeight: FontWeight.bold
   );
 
   static const TextStyle currentTempTextStyle = TextStyle(
     fontSize: 64,
     fontFamily: 'Montserrat',
-    // fontWeight: FontWeight.bold,
   );
   static const TextStyle currentFeelsLikeTextStyle = TextStyle(
     fontSize: 18.0,
@@ -64,15 +36,17 @@ class AppStyles {
 
   static const TextStyle drawerHeaderTextStyle = TextStyle(
     fontSize: 24,
-    fontFamily: 'Raleway',
+    fontFamily: 'AlegreyaSC',
+    fontWeight: FontWeight.bold,
   );
+
   static const TextStyle settingsButtonStyle = TextStyle(
     fontSize: 18,
-    fontFamily: 'CarroisSC',
+    fontFamily: 'AlegreyaSC',
   );
+  
   static const TextStyle cardHeaderStyle = TextStyle(
     fontSize: 14,
-    // fontWeight: FontWeight.bold,
     fontFamily: 'Montserrat',
   );
 
@@ -127,7 +101,3 @@ class AppColors {
           : textColorLightMode;
 }
 
-class AppFonts {
-  static const String carroisSC = 'CarroisSC';
-  static const String montserrat = 'Montserrat';
-}
