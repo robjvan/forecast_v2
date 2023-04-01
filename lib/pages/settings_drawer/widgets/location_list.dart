@@ -13,7 +13,7 @@ class LocationListWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4),
       itemCount: viewModel.weatherDataList.length,
       itemBuilder: (final BuildContext ctx, final int i) =>
-          LocationListTile(viewModel, i),
+          LocationListTile(i),
     );
   }
 }
