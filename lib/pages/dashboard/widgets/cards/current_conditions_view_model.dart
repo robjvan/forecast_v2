@@ -5,7 +5,6 @@ import 'package:redux/redux.dart';
 
 @immutable
 class CurrentConditionsViewModel {
-  /// Common vars
   final List<WeatherData> weatherDataList;
   final int activeLocationIndex;
   final Color cardColor;
@@ -14,7 +13,6 @@ class CurrentConditionsViewModel {
   final String currentConditions;
   final String currentTemp;
   final String feelsLikeTemp;
-  // final Function(int) weatherIcon;
 
   final String conditionsIconUrl;
   final bool activeWeatherAlert;
@@ -27,7 +25,6 @@ class CurrentConditionsViewModel {
     required this.currentConditions,
     required this.currentTemp,
     required this.feelsLikeTemp,
-    // required this.weatherIcon,
     required this.conditionsIconUrl,
     required this.activeWeatherAlert,
   });
@@ -45,17 +42,6 @@ class CurrentConditionsViewModel {
               .condition!.text!
           : '';
     }
-
-    // /// Fetch current weather icon based on current conditions and location
-    // IconData? getWeatherIcon(final int code) {
-    //   bool isDay = false;
-    //   if (store.state.weatherData.isNotEmpty) {
-    //     isDay = store.state.weatherData[getCurrentLocationIndex()]
-    //             .currentConditions.is_day ??
-    //         false;
-    //   }
-    //   return WeatherIconParser.weatherIcon(code, isDay);
-    // }
 
     /// Fetch current temp value based on user's temp units and location index
     String getCurrentTemp() {
@@ -122,7 +108,6 @@ class CurrentConditionsViewModel {
       feelsLikeTemp: getFeelsLikeTemp(),
       currentTemp: getCurrentTemp(),
       currentConditions: getCurrentConditionsString(),
-      // weatherIcon: getWeatherIcon,
       cardColor: AppColors.getCardColor(store),
       textColor: AppColors.getTextColor(store),
       weatherDataList: store.state.weatherData,
