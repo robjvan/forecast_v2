@@ -1,45 +1,113 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
+import 'package:forecast_v3/models/models.dart';
 import 'package:forecast_v3/pages/settings_drawer/settings_drawer_view_model.dart';
 import 'package:forecast_v3/redux/actions.dart';
 import 'package:forecast_v3/utilities/utilities.dart';
 import 'package:get/get.dart';
 
 class LocationListTile extends StatelessWidget {
-  final SettingsDrawerViewModel viewModel;
   final int index;
 
-  const LocationListTile(this.viewModel, this.index, {final Key? key})
-      : super(key: key);
+  const LocationListTile(this.index, {final Key? key}) : super(key: key);
 
   @override
   Widget build(final BuildContext context) {
     final double sw = MediaQuery.of(context).size.width;
 
-    String getCityName() {
+    String getCityName(final SettingsDrawerViewModel vm) {
       return index == 0
-          ? '${'current_location'.tr}, ${viewModel.weatherDataList[index]!.currentConditions.temp_c!.round()}c'
-          : '${viewModel.weatherDataList[index]!.location.name!}, ${viewModel.weatherDataList[index]!.currentConditions.temp_c!.round()}c';
+          ? '${'current_location'.tr}, ${vm.weatherDataList[index]!.currentConditions.temp_c!.round()}c'
+          : '${vm.weatherDataList[index]!.location.name!}, ${vm.weatherDataList[index]!.currentConditions.temp_c!.round()}c';
     }
 
-    Widget buildTileBackground(final SettingsDrawerViewModel viewModel) {
+    Widget buildConfirmDeleteDialog(final SettingsDrawerViewModel vm) {
+      final String locationName = index == 0
+          ? 'current_location'.tr
+          : vm.weatherDataList[index]!.location.name!;
+
+      return SimpleDialog(
+        contentPadding: const EdgeInsets.all(16.0),
+        backgroundColor: vm.cardColor,
+        children: <Widget>[
+          Text(
+            'Are you sure you want to delete',
+            style: TextStyle(
+              color: vm.textColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 18.0,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            '$locationName?',
+            style: TextStyle(
+              color: vm.textColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 18.0,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16.0),
+          Text(
+            'This cannot be undone!',
+            style: TextStyle(
+              color: vm.textColor,
+              fontStyle: FontStyle.italic,
+              fontSize: 14.0,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 24.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              TextButton(
+                onPressed: Get.back,
+                child: Text(
+                  'cancel'.tr,
+                  style: TextStyle(color: const Color(0xFFD0BCFF)),
+                ),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: vm.useDarkMode
+                      ? const Color(0x88D0BCFF)
+                      : const Color.fromARGB(135, 188, 189, 255),
+                ),
+                onPressed: () => Get.back(result: true),
+                child: Text(
+                  'ok'.tr,
+                  style: TextStyle(
+                    color: vm.textColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      );
+    }
+
+    Widget buildTileBackground(final SettingsDrawerViewModel vm) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(8),
-        child: viewModel.useAnimatedBackgrounds
-            ? index == viewModel.activeIndex
+        child: vm.useAnimatedBackgrounds
+            ? index == vm.activeIndex
                 ? ColorFiltered(
                     colorFilter: ColorFilter.mode(
-                      viewModel.panelColor.withOpacity(
-                        index == viewModel.activeIndex ? 0.8 : 0.3,
+                      vm.cardColor.withOpacity(
+                        index == vm.activeIndex ? 0.8 : 0.3,
                       ),
                       BlendMode.dstATop,
                     ),
                     child: WeatherBg(
                       width: sw,
                       height: 48,
-                      weatherType: viewModel.weatherType(
-                        viewModel.weatherDataList[index]!.currentConditions
-                                .condition!.code ??
+                      weatherType: vm.weatherType(
+                        vm.weatherDataList[index]!.currentConditions.condition!
+                                .code ??
                             1000,
                         index,
                       ),
@@ -48,25 +116,25 @@ class LocationListTile extends StatelessWidget {
                 : Container(
                     width: sw,
                     height: 48,
-                    color: index == viewModel.activeIndex
+                    color: index == vm.activeIndex
                         ? Theme.of(context).primaryColor
-                        : viewModel.useDarkMode
+                        : vm.useDarkMode
                             ? AppColors.locationTileDarkGrey
                             : AppColors.lightGrey,
                   )
             : Container(
                 width: sw,
                 height: 48,
-                color: index == viewModel.activeIndex
+                color: index == vm.activeIndex
                     ? Theme.of(context).primaryColor
-                    : viewModel.useDarkMode
+                    : vm.useDarkMode
                         ? AppColors.locationTileDarkGrey
                         : AppColors.lightGrey,
               ),
       );
     }
 
-    Widget buildTileContent(final SettingsDrawerViewModel viewModel) {
+    Widget buildTileContent(final SettingsDrawerViewModel vm) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: Row(
@@ -74,14 +142,14 @@ class LocationListTile extends StatelessWidget {
             SizedBox(
               width: sw - 136,
               child: Text(
-                getCityName(),
+                getCityName(vm),
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 16,
-                  color: index == viewModel.activeIndex
-                      ? viewModel.textColor
-                      : viewModel.textColor.withOpacity(0.6),
-                  fontWeight: index == viewModel.activeIndex
+                  color: index == vm.activeIndex
+                      ? vm.textColor
+                      : vm.textColor.withOpacity(0.6),
+                  fontWeight: index == vm.activeIndex
                       ? FontWeight.bold
                       : FontWeight.normal,
                 ),
@@ -93,38 +161,43 @@ class LocationListTile extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 12.0),
                     child: Icon(
                       Icons.location_on_outlined,
-                      color: index == viewModel.activeIndex
-                          ? viewModel.textColor
-                          : viewModel.textColor.withOpacity(0.3),
+                      color: index == vm.activeIndex
+                          ? vm.textColor
+                          : vm.textColor.withOpacity(0.3),
                     ),
                   )
                 : IconButton(
                     onPressed: () async {
-                      /**
+                      bool confirmDelete = false;
+                      confirmDelete =
+                          await Get.dialog(buildConfirmDeleteDialog(vm)) ??
+                              false;
+
+                      if (confirmDelete) {
+                        /**
                        * Check if our activeIndex is higher than the 
                        * index of the location being deleted.
                        * If so, we need to decrement our activeIndex 
                        * to avoid out of range errors
                        */
-                      if (viewModel.activeIndex >= index) {
-                        viewModel.dispatch(
-                          UpdateCurrentLocationIndexAction(
-                            viewModel.activeIndex - 1,
-                          ),
-                        );
-                        viewModel.saveUserSettings();
+                        if (vm.activeIndex >= index) {
+                          vm.dispatch(
+                            UpdateCurrentLocationIndexAction(
+                              vm.activeIndex - 1,
+                            ),
+                          );
+                          vm.saveUserSettings();
+                        }
+
+                        /// Dispatch action to remove location from lists
+                        await vm.dispatch(removeLocationFromListAction(index));
                       }
-
-                      /// Dispatch action to remove location from lists
-                      await viewModel
-                          .dispatch(removeLocationFromListAction(index));
-
                     },
                     icon: Icon(
                       Icons.delete,
-                      color: index == viewModel.activeIndex
-                          ? viewModel.textColor
-                          : viewModel.textColor.withOpacity(0.3),
+                      color: index == vm.activeIndex
+                          ? vm.textColor
+                          : vm.textColor.withOpacity(0.3),
                     ),
                   ),
           ],
@@ -132,7 +205,11 @@ class LocationListTile extends StatelessWidget {
       );
     }
 
-    return Container(
+    return StoreConnector<AppState, SettingsDrawerViewModel>(
+      distinct: true,
+      converter: SettingsDrawerViewModel.create,
+      builder: (final _, final SettingsDrawerViewModel vm) {
+        return Container(
       height: 48,
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
@@ -140,17 +217,21 @@ class LocationListTile extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          viewModel.dispatch(UpdateCurrentLocationIndexAction(index));
-          viewModel.saveUserSettings();
+              vm.dispatch(UpdateCurrentLocationIndexAction(index));
+              vm.saveUserSettings();
         },
         child: Stack(
           alignment: AlignmentDirectional.center,
           children: <Widget>[
-            buildTileBackground(viewModel),
-            buildTileContent(viewModel),
+                buildTileBackground(vm),
+                buildTileContent(vm),
           ],
         ),
       ),
     );
+      },
+    );
+
+    
   }
 }
