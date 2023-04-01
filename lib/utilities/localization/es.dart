@@ -86,4 +86,14 @@ const Map<String, String> spanishStrings = <String, String>{
 
   // Weather alert dialog strings
   'alert': 'Alerta',
+
+  /// Days of the week strings
+  'today': 'Hoy',
+  'mon': 'Lun',
+  'tue': 'Mar',
+  'wed': 'Mié',
+  'thu': 'Jue',
+  'fri': 'Vie',
+  'sat': 'Sáb',
+  'sun': 'Dom',
 };

@@ -85,4 +85,14 @@ const Map<String, String> frenchStrings = <String, String>{
 
   // Weather alert dialog strings
   'alert': 'Alerte',
+
+  /// Days of the week strings
+  'today': 'Auj',
+  'mon': 'Lun',
+  'tue': 'Mar',
+  'wed': 'Mer',
+  'thu': 'Jue',
+  'fri': 'Ven',
+  'sat': 'Sam',
+  'sun': 'Dim',
 };

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:forecast_v3/models/models.dart';
-import 'package:forecast_v3/utilities/utilities.dart';
+import 'package:forecast/models/models.dart';
+import 'package:forecast/utilities/utilities.dart';
+import 'package:get/get.dart';
 import 'package:redux/redux.dart';
 
 @immutable
@@ -41,19 +42,19 @@ class DailyForecastViewModel {
     List<String> buildDayStrings() {
       switch (DateTime.now().weekday) {
         case 1:
-          return <String>['Today', 'Tue', 'Wed', 'Thu', 'Fri'];
+          return <String>['today'.tr, 'tue'.tr, 'wed'.tr, 'thu'.tr, 'fri'.tr];
         case 2:
-          return <String>['Today', 'Wed', 'Thu', 'Fri', 'Sat'];
+          return <String>['today'.tr, 'wed'.tr, 'thu'.tr, 'fri'.tr, 'sat'.tr];
         case 3:
-          return <String>['Today', 'Thu', 'Fri', 'Sat', 'Sun'];
+          return <String>['today'.tr, 'thu'.tr, 'fri'.tr, 'sat'.tr, 'sun'.tr];
         case 4:
-          return <String>['Today', 'Fri', 'Sat', 'Sun', 'Mon'];
+          return <String>['today'.tr, 'fri'.tr, 'sat'.tr, 'sun'.tr, 'mon'.tr];
         case 5:
-          return <String>['Today', 'Sat', 'Sun', 'Mon', 'Tue'];
+          return <String>['today'.tr, 'sat'.tr, 'sun'.tr, 'mon'.tr, 'tue'.tr];
         case 6:
-          return <String>['Today', 'Sun', 'Mon', 'Tue', 'Wed'];
+          return <String>['today'.tr, 'sun'.tr, 'mon'.tr, 'tue'.tr, 'wed'.tr];
         case 7:
-          return <String>['Today', 'Mon', 'Tue', 'Wed', 'Thu'];
+          return <String>['today'.tr, 'mon'.tr, 'tue'.tr, 'wed'.tr, 'thu'.tr];
         default:
           return <String>[];
       }

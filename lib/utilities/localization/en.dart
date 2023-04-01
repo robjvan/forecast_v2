@@ -82,4 +82,14 @@ final Map<String, String> englishStrings = <String, String>{
   'wnw': 'WNW',
   'nw': 'NW',
   'nnw': 'NNW',
+
+  /// Days of the week strings
+  'today': 'Today',
+  'mon': 'Mon',
+  'tue': 'Tue',
+  'wed': 'Wed',
+  'thu': 'Thu',
+  'fri': 'Fri',
+  'sat': 'Sat',
+  'sun': 'Sun',
 };
