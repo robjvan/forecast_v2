@@ -1,4 +1,4 @@
-package ca.robjvan.forecast_v3
+package ca.robjvan.fancy_weather
 
 import io.flutter.embedding.android.FlutterActivity
 
