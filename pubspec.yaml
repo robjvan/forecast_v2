@@ -58,25 +58,8 @@ flutter:
           style: italic
         - asset: assets/fonts/Montserrat-Bold.ttf
           weight: 700
-    - family: Raleway
-      fonts:
-        - asset: assets/fonts/Raleway-Regular.ttf
-        - asset: assets/fonts/Raleway-Bold.ttf
-          weight: 700
-    - family: CarroisSC
-      fonts:
-        - asset: assets/fonts/CarroisGothicSC-Regular.ttf
-    - family: Lato
-      fonts:
-        - asset: assets/fonts/Lato-Regular.ttf
-        - asset: assets/fonts/Lato-Italic.ttf
-          style: italic
-        - asset: assets/fonts/Lato-Bold.ttf
-          weight: 700
     - family: AlegreyaSC
       fonts:
         - asset: assets/fonts/AlegreyaSansSC-Regular.ttf
-        - asset: assets/fonts/AlegreyaSansSC-Italic.ttf
-          style: italic
         - asset: assets/fonts/AlegreyaSansSC-Bold.ttf
           weight: 700
