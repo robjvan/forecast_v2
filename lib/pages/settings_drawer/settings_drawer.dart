@@ -18,7 +18,7 @@ class SettingsDrawer extends StatelessWidget {
       padding: const EdgeInsets.only(top: 16.0),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: vm.panelColor,
+          color: vm.cardColor,
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: ExpansionTile(
@@ -67,7 +67,7 @@ class SettingsDrawer extends StatelessWidget {
   Widget _buildLocationSection(final SettingsDrawerViewModel vm) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: vm.panelColor,
+        color: vm.cardColor,
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: ExpansionTile(
@@ -96,7 +96,7 @@ class SettingsDrawer extends StatelessWidget {
       padding: const EdgeInsets.only(top: 16.0),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: vm.panelColor,
+          color: vm.cardColor,
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: ExpansionTile(
@@ -166,8 +166,11 @@ class SettingsDrawer extends StatelessWidget {
       padding: const EdgeInsets.only(top: 32.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: vm.panelColor,
+          backgroundColor: vm.cardColor,
           foregroundColor: vm.textColor,
+          // foregroundColor: vm.useDarkMode
+          //     ? const Color(0xDDD0BCFF)
+          //     : const Color(0xFFD0BCFF),
         ),
         onPressed: Get.back,
         child: Text('close'.tr, style: AppStyles.settingsButtonStyle),
