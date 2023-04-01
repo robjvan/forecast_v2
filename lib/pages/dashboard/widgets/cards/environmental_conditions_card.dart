@@ -79,6 +79,7 @@ class EnvironmentalConditionsCard extends StatelessWidget {
           Text(
             '${vm.aqi}',
             style: AppStyles.dataCardDataStyle.copyWith(color: vm.textColor),
+            overflow: TextOverflow.ellipsis,
           ),
           Text(
             '(${vm.airQualityString})',
