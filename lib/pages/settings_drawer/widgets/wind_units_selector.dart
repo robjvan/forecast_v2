@@ -5,14 +5,14 @@ import 'package:forecast_v3/pages/settings_drawer/widgets/widgets.dart';
 import 'package:get/get.dart';
 
 class WindUnitsSelector extends StatelessWidget {
-  final SettingsDrawerViewModel viewModel;
+  final SettingsDrawerViewModel vm;
 
-  const WindUnitsSelector(this.viewModel, {final Key? key}) : super(key: key);
+  const WindUnitsSelector(this.vm, {final Key? key}) : super(key: key);
 
   @override
   Widget build(final BuildContext context) {
     int index = 0;
-    switch (viewModel.windSpeedUnits) {
+    switch (vm.windSpeedUnits) {
       case WindSpeedUnits.kph:
         index = 0;
         break;
@@ -33,16 +33,16 @@ class WindUnitsSelector extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
               'wind_speed_units'.tr,
-              style: TextStyle(color: viewModel.textColor),
+              style: TextStyle(color: vm.textColor),
             ),
           ),
           SettingsToggleSwitch(
             context: context,
             initialIndex: index,
             labels: const <String>['km/h', 'mph', 'knots', 'm/s'],
-            onToggleFn: viewModel.updateWindSpeedUnits,
+            onToggleFn: vm.updateWindSpeedUnits,
             totalSwitches: 4,
-            viewModel: viewModel,
+            vm: vm,
           ),
         ],
       ),

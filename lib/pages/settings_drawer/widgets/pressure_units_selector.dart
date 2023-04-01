@@ -5,14 +5,14 @@ import 'package:forecast_v3/pages/settings_drawer/widgets/widgets.dart';
 import 'package:get/get.dart';
 
 class AirPressureUnitsSelector extends StatelessWidget {
-  final SettingsDrawerViewModel viewModel;
-  const AirPressureUnitsSelector(this.viewModel, {final Key? key})
+  final SettingsDrawerViewModel vm;
+  const AirPressureUnitsSelector(this.vm, {final Key? key})
       : super(key: key);
 
   @override
   Widget build(final BuildContext context) {
     int index = 0;
-    switch (viewModel.airPressureUnits) {
+    switch (vm.airPressureUnits) {
       case AirPressureUnits.kpa:
         index = 0;
         break;
@@ -33,16 +33,16 @@ class AirPressureUnitsSelector extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
               'air_pressure_units'.tr,
-              style: TextStyle(color: viewModel.textColor),
+              style: TextStyle(color: vm.textColor),
             ),
           ),
           SettingsToggleSwitch(
             context: context,
             initialIndex: index,
             labels: const <String>['Kpa', 'inch', 'Mbar', 'ATM'],
-            onToggleFn: viewModel.updateAirPressureUnits,
+            onToggleFn: vm.updateAirPressureUnits,
             totalSwitches: 4,
-            viewModel: viewModel,
+            vm: vm,
           ),
         ],
       ),

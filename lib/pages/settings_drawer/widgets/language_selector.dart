@@ -4,9 +4,9 @@ import 'package:forecast_v3/pages/settings_drawer/widgets/widgets.dart';
 import 'package:get/get.dart';
 
 class LanguageSelector extends StatelessWidget {
-  final SettingsDrawerViewModel viewModel;
+  final SettingsDrawerViewModel vm;
 
-  const LanguageSelector(this.viewModel, {final Key? key}) : super(key: key);
+  const LanguageSelector(this.vm, {final Key? key}) : super(key: key);
 
   @override
   Widget build(final BuildContext context) {
@@ -26,12 +26,12 @@ class LanguageSelector extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
               'select_language'.tr,
-              style: TextStyle(color: viewModel.textColor),
+              style: TextStyle(color: vm.textColor),
             ),
           ),
           SettingsToggleSwitch(
             context: context,
-            viewModel: viewModel,
+            vm: vm,
             totalSwitches: 3,
             initialIndex: index,
             labels: <String>[
@@ -40,7 +40,7 @@ class LanguageSelector extends StatelessWidget {
               'es'.tr,
             ],
             onToggleFn: (final int? index) {
-              // viewModel.refreshScreen(context);
+              // vm.refreshScreen(context);
               switch (index) {
                 case 0:
                   Get.updateLocale(const Locale('en'));
@@ -52,6 +52,7 @@ class LanguageSelector extends StatelessWidget {
                   Get.updateLocale(const Locale('es'));
                   break;
               }
+              vm.updateWeatherData();
             },
           )
         ],

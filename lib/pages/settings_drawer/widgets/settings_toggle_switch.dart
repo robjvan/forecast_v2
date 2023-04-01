@@ -5,7 +5,7 @@ import 'package:toggle_switch/toggle_switch.dart';
 
 class SettingsToggleSwitch extends StatelessWidget {
   final BuildContext context;
-  final SettingsDrawerViewModel viewModel;
+  final SettingsDrawerViewModel vm;
   final int totalSwitches;
   final int initialIndex;
   final List<String> labels;
@@ -13,7 +13,7 @@ class SettingsToggleSwitch extends StatelessWidget {
 
   const SettingsToggleSwitch({
     required this.context,
-    required this.viewModel,
+    required this.vm,
     required this.totalSwitches,
     required this.initialIndex,
     required this.labels,
@@ -51,10 +51,15 @@ class SettingsToggleSwitch extends StatelessWidget {
       animate: true,
       curve: Curves.easeInOut,
       animationDuration: 250,
-      inactiveFgColor: viewModel.textColor,
-      activeFgColor: viewModel.textColor,
+      inactiveFgColor: vm.textColor,
+      activeFgColor: vm.textColor,
+      activeBgColor: [
+        vm.useDarkMode
+            ? const Color(0x88D0BCFF)
+            : const Color.fromARGB(135, 188, 189, 255)
+      ],
       inactiveBgColor:
-          viewModel.useDarkMode ? const Color(0xFF303030) : AppColors.lightGrey,
+          vm.useDarkMode ? const Color(0xFF303030) : AppColors.lightGrey,
     );
   }
 }

@@ -4,14 +4,14 @@ import 'package:forecast_v3/pages/settings_drawer/widgets/widgets.dart';
 import 'package:get/get.dart';
 
 class AnimatedBgToggle extends StatelessWidget {
-  final SettingsDrawerViewModel viewModel;
+  final SettingsDrawerViewModel vm;
 
-  const AnimatedBgToggle(this.viewModel, {final Key? key}) : super(key: key);
+  const AnimatedBgToggle(this.vm, {final Key? key}) : super(key: key);
 
   @override
   Widget build(final BuildContext context) {
     int index = 0;
-    if (viewModel.useAnimatedBackgrounds) {
+    if (vm.useAnimatedBackgrounds) {
       index = 1;
     } else {
       index = 0;
@@ -22,7 +22,7 @@ class AnimatedBgToggle extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 8.0),
           child: Text(
             'enable_backgrounds'.tr,
-            style: TextStyle(color: viewModel.textColor),
+            style: TextStyle(color: vm.textColor),
           ),
         ),
         SettingsToggleSwitch(
@@ -30,9 +30,9 @@ class AnimatedBgToggle extends StatelessWidget {
           initialIndex: index,
           labels: <String>['off'.tr, 'on'.tr],
           onToggleFn: (final _) =>
-              <dynamic>{viewModel.toggleAnimatedBackgrounds()},
+              <dynamic>{vm.toggleAnimatedBackgrounds()},
           totalSwitches: 2,
-          viewModel: viewModel,
+          vm: vm,
         ),
       ],
     );

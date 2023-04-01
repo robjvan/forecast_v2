@@ -4,13 +4,13 @@ import 'package:forecast_v3/pages/settings_drawer/widgets/widgets.dart';
 import 'package:get/get.dart';
 
 class TempUnitsSelector extends StatelessWidget {
-  final SettingsDrawerViewModel viewModel;
-  const TempUnitsSelector(this.viewModel, {final Key? key}) : super(key: key);
+  final SettingsDrawerViewModel vm;
+  const TempUnitsSelector(this.vm, {final Key? key}) : super(key: key);
 
   @override
   Widget build(final BuildContext context) {
     int index = 0;
-    switch (viewModel.tempUnits) {
+    switch (vm.tempUnits) {
       case 'c':
         index = 0;
         break;
@@ -28,16 +28,16 @@ class TempUnitsSelector extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
               'temp_units'.tr,
-              style: TextStyle(color: viewModel.textColor),
+              style: TextStyle(color: vm.textColor),
             ),
           ),
           SettingsToggleSwitch(
             context: context,
-            viewModel: viewModel,
+            vm: vm,
             totalSwitches: 3,
             initialIndex: index,
             labels: const <String>['C', 'F', 'K'],
-            onToggleFn: viewModel.updateTempUnits,
+            onToggleFn: vm.updateTempUnits,
           )
         ],
       ),

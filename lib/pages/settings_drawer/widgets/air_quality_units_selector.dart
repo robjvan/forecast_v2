@@ -5,14 +5,14 @@ import 'package:forecast_v3/pages/settings_drawer/widgets/widgets.dart';
 import 'package:get/get.dart';
 
 class AirQualityUnitsSelector extends StatelessWidget {
-  final SettingsDrawerViewModel viewModel;
-  const AirQualityUnitsSelector(this.viewModel, {final Key? key})
+  final SettingsDrawerViewModel vm;
+  const AirQualityUnitsSelector(this.vm, {final Key? key})
       : super(key: key);
 
   @override
   Widget build(final BuildContext context) {
     int index = 0;
-    switch (viewModel.aqiUnits) {
+    switch (vm.aqiUnits) {
       case AQIUnits.us:
         index = 0;
         break;
@@ -26,7 +26,7 @@ class AirQualityUnitsSelector extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 8.0),
           child: Text(
             'aqi_units'.tr,
-            style: TextStyle(color: viewModel.textColor),
+            style: TextStyle(color: vm.textColor),
           ),
         ),
         SettingsToggleSwitch(
@@ -34,9 +34,9 @@ class AirQualityUnitsSelector extends StatelessWidget {
           initialIndex: index,
           labels: <String>['us_aqi'.tr, 'gb_aqi'.tr],
           onToggleFn: (final dynamic index) =>
-              <dynamic>{viewModel.updateAQIUnits(index)},
+              <dynamic>{vm.updateAQIUnits(index)},
           totalSwitches: 2,
-          viewModel: viewModel,
+          vm: vm,
         ),
       ],
     );
