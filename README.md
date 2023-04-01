@@ -1,7 +1,6 @@
 # Forecast v2
 
-<img width="150" height="300" src="https://i.robjvan.ca/forecast/dark-mode-01.png">
-<img width="150" height="300" src="https://i.robjvan.ca/forecast/dark-mode-02.png">
+<img width="150" height="300" src="https://i.robjvan.ca/forecast/dark-mode-01.png"> <img width="150" height="300" src="https://i.robjvan.ca/forecast/dark-mode-02.png">
 
 Weather information app built with Flutter leveraging Redux, Get, Google APIs, weather data APIs, and more. ~7300 lines of code and comments.
 
