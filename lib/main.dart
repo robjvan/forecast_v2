@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:forecast/models/models.dart';
 import 'package:forecast/redux/reducers.dart';
@@ -13,6 +14,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
 
+
+  /// Create app store
   final Store<AppState> store = Store<AppState>(
     appReducer,
     initialState: AppState.initial(),
@@ -23,6 +26,13 @@ void main() async {
     ],
   );
 
+  /// Lock app in portrait orientation
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
+  /// Launch the app
   runApp(MyApp(store));
 }
 
